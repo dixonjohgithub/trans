@@ -1,4 +1,4 @@
-```markdown
+
 # Generative AI & Agentic AI Problem Framing Course
 ## A Business Guide to Understanding AI Solutions
 
@@ -1421,4 +1421,3 @@ Match solution complexity to problem complexity.
 Measure, learn, and iterate.
 
 The organizations that succeed with AI are those that frame problems well, set realistic expectations, and execute with discipline. The technology is ready—the question is whether your organization is ready to use it wisely.
-```
