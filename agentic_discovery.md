@@ -1,4 +1,3 @@
-````markdown
 # Why Open-Ended Agentic Discovery Fails and How to Design Guided Agentic Discovery Systems
 
 ---
@@ -98,7 +97,6 @@ success_thresholds:
   time_to_productivity_days: < 3
   onboarding_completion_rate: > 95%
 business_owner: VP_HR_Operations
-````
 
 ---
 
