@@ -97,7 +97,7 @@ success_thresholds:
   time_to_productivity_days: < 3
   onboarding_completion_rate: > 95%
 business_owner: VP_HR_Operations
-
+```
 ---
 
 ### 4.2. Agent Layers and Roles
