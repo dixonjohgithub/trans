@@ -1,87 +1,106 @@
-# Why Open-Ended Agentic Discovery Fails and How to Design Guided Agentic Discovery Systems
+
+# Why Open-Ended Agentic Discovery Fails and How Guided Agentic Discovery Outperforms Commercial “Automation Discovery” Tools
 
 ---
 
 ## 1. Introduction
 
-Many enterprises are exploring **Agentic AI Discovery**—AI systems that autonomously mine data from internal platforms (e.g., Workday, ServiceNow, SharePoint, RAUs, Tech Spend) to identify potential automation or AI use cases.  
+A new wave of commercial platforms—like **Skan.ai**, **Celonis**, **UiPath Process Mining**, and similar **“automation discovery”** or **“process intelligence”** products—claim to deliver AI-driven automation discovery by mining enterprise data.  
 
-While this approach sounds innovative, **open-ended discovery**—granting AI broad access to multiple systems without predefined goals—often fails to generate meaningful or actionable insights. This document outlines **why unguided approaches fail**, how **guided agentic discovery** corrects those shortcomings, and what a **comprehensive use case definition** requires.
+While these tools provide valuable **process visualization**, **bottleneck detection**, and **automation opportunity insights**, they largely operate as **data-driven process mining engines**, not **agentic discovery systems**.  
 
----
+More importantly, they inherit many of the same limitations of **open-ended agentic discovery**, particularly when used without clear business context, defined KPIs, or domain constraints.  
 
-## 2. Why Open-Ended Agentic Discovery Fails
-
-### 2.1. No Domain Context
-When AI agents access multiple enterprise systems without a defined **business domain**, they lack the context to evaluate what matters.  
-- **Problem:** AI surfaces patterns (“many tickets mention ‘delay’”) without understanding whether that delay is meaningful or costly.  
-- **Result:** Noise is mistaken for insight.  
-
-> Example: Mining ServiceNow + Workday + SharePoint simultaneously may find “repeated approval mentions” but cannot distinguish if they relate to HR onboarding, IT access, or procurement workflows.
+This paper explains **why unguided AI discovery fails**, **how emerging tools partially address the gap**, and **why a guided, domain-specific agentic discovery framework** offers a more strategic, value-aligned solution.
 
 ---
 
-### 2.2. No Defined KPIs or Success Criteria
-Without predefined metrics, discovery becomes subjective. The AI cannot measure whether a pattern is good or bad.  
-- **Problem:** “Average ticket resolution time is 3 days” — Is that acceptable or inefficient?  
-- **Result:** No measurable ROI or clear business case emerges.  
+## 2. The Promise and Pitfalls of Automation Discovery Tools
 
-> Without KPIs (e.g., “reduce MTTR from 3 days to 1 day”), the AI has no way to link its discovery to value.
+### 2.1. What Tools Like Skan.ai and Celonis Offer
 
----
+| Tool | Core Strengths | Typical Use Cases |
+|-------|----------------|-------------------|
+| **Skan.ai** | Computer vision and system telemetry-based process capture; generates process maps from employee workflows | Discovering repetitive digital tasks for RPA automation |
+| **Celonis** | Enterprise process mining; correlates event logs across ERP/CRM systems (SAP, Salesforce, Workday) to identify inefficiencies | Process optimization, bottleneck identification, compliance drift detection |
+| **UiPath Process Mining** | Event log–based process mapping tied to automation design tools | Discovering automation candidates for UiPath bots |
 
-### 2.3. Data Without Intent = Irrelevance
-Data pulled from systems like Workday or SharePoint contain diverse operational information. Without a hypothesis or objective, AI lacks an **intent filter**.  
-- **Problem:** The AI highlights anomalies that may have no business relevance.  
-- **Result:** Analysts must spend more time filtering AI findings than solving real problems.
+These tools excel at:
+- Mapping **“as-is” workflows**  
+- Identifying **task-level inefficiencies**  
+- Suggesting **rule-based automation candidates**  
 
----
-
-### 2.4. Lack of Governance and Prioritization
-Unguided exploration typically involves:
-- Broad system access
-- Undefined data use boundaries
-- Overlapping signals from different systems
-
-This creates governance and security risks, while also producing **duplicate, low-value discoveries**.
+They provide clear operational visibility, but their focus is **descriptive**, not **prescriptive or generative**.  
 
 ---
 
-### 2.5. “AI in Search of a Problem” Syndrome
-The most significant failure mode is when AI generates outputs that **sound interesting but have no owner or actionable path**.  
-- No alignment to business goals  
-- No stakeholder buy-in  
-- No measure of success or feasibility  
+### 2.2. The Limitations of These Tools
 
-> The result is a showcase of patterns—without transformation.
+| Limitation | Description | Implication |
+|-------------|--------------|-------------|
+| **Domain-Agnostic** | Designed to scan all available data sources (ERP, CRM, HR, Finance) without business framing | Leads to irrelevant or low-value automation suggestions |
+| **No KPI Alignment** | Findings are often not benchmarked against strategic or departmental KPIs | Hard to link discovered “inefficiencies” to measurable ROI |
+| **Reactive Analysis** | Discover patterns in existing logs but cannot reason about *why* inefficiencies occur or how to solve them | Limited to “process snapshots” without predictive or adaptive recommendations |
+| **Static Discovery** | Once process logs are mapped, systems require manual refresh and human interpretation | Discovery is not continuous or autonomous |
+| **Limited Integration with AI Reasoning Agents** | Tools detect patterns but do not *synthesize business cases*, *assess feasibility*, or *simulate outcomes* | Organizations still rely on analysts to connect discovery → value → execution |
+
+> In short, tools like **Celonis and Skan.ai** answer *“What is happening?”* but not *“Why does this matter, and what should we do about it?”*
 
 ---
 
-## 3. Transitioning to Guided Agentic Discovery
+## 3. Why Open-Ended Agentic Discovery Still Fails
 
-Guided discovery reframes AI not as an autonomous explorer, but as a **decision-support partner** operating within structured domains, metrics, and governance boundaries.
+Even if enterprise AI agents were deployed with unrestricted access to systems like Workday, ServiceNow, and SharePoint, they would face the same structural problems as commercial process-mining tools when used without **guidance**.
 
-### 3.1. Core Principles
+### 3.1. No Domain Context
+Without business-domain constraints (HR, Finance, IT, Compliance), AI lacks a conceptual framework for **value assessment** or **ownership**.
+
+### 3.2. Lack of KPI Anchors
+AI cannot know whether a pattern represents a problem or normal variance without metrics like *mean time to resolve*, *cost per incident*, or *policy compliance thresholds*.
+
+### 3.3. Misaligned Objectives
+AI might find thousands of anomalies, but with no ranking or business linkage, the output becomes overwhelming.
+
+### 3.4. Governance and Security Concerns
+Open access to multiple enterprise systems introduces compliance risk, data redundancy, and integration complexity.
+
+---
+
+## 4. Guided Agentic Discovery: The Next Generation Approach
+
+### 4.1. Conceptual Shift
+
+**Guided Agentic Discovery** builds upon the strengths of process-mining tools (like Celonis) but adds:
+- **Business-domain anchoring**
+- **KPI- and hypothesis-driven reasoning**
+- **Autonomous business case generation**
+- **Cross-system context synthesis**
+
+This approach transforms discovery from a **bottom-up pattern finder** into a **top-down strategy-aligned intelligence layer**.
+
+---
+
+### 4.2. Core Principles
 
 | Principle | Description |
 |------------|--------------|
-| **Domain Anchoring** | Define one business domain per discovery cycle (e.g., HR, IT, Finance, Compliance). |
-| **Hypothesis-Driven** | Start with a clear assumption or question (e.g., “Access approval bottlenecks delay onboarding”). |
-| **KPI-Aligned** | Tie discoveries to quantifiable success criteria. |
-| **Governed Data Access** | Connect only to the systems required for that domain’s hypothesis. |
-| **Business Case Outputs** | Every discovery must produce a measurable problem statement and an actionable proposal. |
+| **Domain Anchoring** | Start with a single business area (HR, IT, Finance) and define measurable goals. |
+| **KPI Integration** | Link findings to strategic and operational metrics. |
+| **Hypothesis-Driven Exploration** | Use AI to validate business hypotheses rather than search blindly. |
+| **Governed Data Access** | Limit data pulls to only relevant systems and datasets. |
+| **Automated Business Case Generation** | Every insight is output as a structured, quantifiable proposal ready for Product Management review. |
 
 ---
 
-## 4. Architecture Overview: Guided Agentic Discovery
+## 5. Guided Agentic Discovery Architecture
 
-### 4.1. Domain Configuration
+### 5.1. Domain Configuration
 
-Each domain has:
-- Defined KPIs and success thresholds  
-- Approved systems and connectors  
-- Historical baseline data  
-- Responsible business owner and SME  
+Each domain defines:
+- Approved systems and APIs  
+- Baseline metrics (KPIs)  
+- Success thresholds and cost models  
+- Ownership and review cadence  
 
 **Example: HR Domain Configuration**
 ```yaml
@@ -91,176 +110,155 @@ primary_systems:
   - ServiceNow
 kpis:
   - time_to_productivity_days
-  - approval_cycle_time
   - onboarding_completion_rate
+  - access_request_cycle_time
 success_thresholds:
-  time_to_productivity_days: < 3
+  time_to_productivity_days: < 5
   onboarding_completion_rate: > 95%
+  access_request_cycle_time: < 2
 business_owner: VP_HR_Operations
 ```
+
+### 5.2. Agent Layers and Roles
+
+| Agent                 | Purpose                                            | Key Output                                      |
+| --------------------- | -------------------------------------------------- | ----------------------------------------------- |
+| **Pattern Agent**     | Finds recurring patterns within scoped domain data | Bottleneck clusters and frequency tables        |
+| **KPI Agent**         | Measures deviation from baselines                  | KPI deltas, success-gap summaries               |
+| **Feasibility Agent** | Tests if identified fixes are practical            | System readiness, policy alignment              |
+| **Value Agent**       | Quantifies time or cost savings                    | ROI estimate, impact score                      |
+| **Storycraft Agent**  | Converts discovery into business case documents    | Problem → Evidence → Solution → Impact template |
+
 ---
 
-### 4.2. Agent Layers and Roles
+## 6. Comprehensive Example: HR Domain (Guided Version)
 
-| Agent                 | Purpose                                                                            | Key Output                                   |
-| --------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------- |
-| **Pattern Agent**     | Finds recurring events, bottlenecks, or anomalies within defined domain boundaries | Frequency tables, root-cause clusters        |
-| **KPI Agent**         | Maps findings to defined metrics and baseline thresholds                           | Metric deviation reports, KPI delta analysis |
-| **Feasibility Agent** | Assesses data accessibility, process readiness, and integration paths              | Feasibility index (Low/Medium/High)          |
-| **Value Agent**       | Estimates time/cost savings or risk reduction                                      | ROI projection and impact score              |
-| **Storycraft Agent**  | Converts validated insights into human-readable business cases                     | Business case template with supporting data  |
-
----
-
-## 5. Example: Comprehensive HR Use Case
-
-### **Title:** Onboarding Process Optimization through AI-Driven Access Orchestration
+### **Title:** AI-Driven Onboarding Process Optimization
 
 ---
 
 ### **1. Problem Definition**
 
-**Observation:** New employee onboarding is delayed by manual approval and system access processes.
-**Impact:** Delays reduce productivity and increase operational overhead.
+**Observation:** Employees face onboarding delays due to manual access approval workflows.
+**Impact:** Extended “time-to-productivity” and reduced employee satisfaction.
 
 **Hypothesis:**
 
-> Automating system access approvals and pre-generating requests can reduce onboarding delays and improve productivity.
+> Automating access requests and approvals will reduce onboarding delays and improve operational efficiency.
 
 ---
 
 ### **2. Domain Context**
 
-| Aspect           | Description                                                                              |
-| ---------------- | ---------------------------------------------------------------------------------------- |
-| **Domain**       | Human Resources                                                                          |
-| **Process**      | Onboarding & Access Management                                                           |
-| **Data Sources** | Workday (Onboarding Workflow), ServiceNow (Access Tickets), SharePoint (Access Policies) |
-| **Stakeholders** | HR Operations, IT Access Management, Security Compliance                                 |
+| Aspect           | Description                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------- |
+| **Domain**       | Human Resources                                                                       |
+| **Process**      | Employee Onboarding and Access Management                                             |
+| **Data Sources** | Workday (Onboarding Steps), ServiceNow (Access Tickets), SharePoint (Access Policies) |
+| **Stakeholders** | HR Operations, IT Access Team, Compliance                                             |
 
 ---
 
-### **3. Baseline Metrics & KPIs**
+### **3. Baseline Metrics and KPIs**
 
-| KPI                         | Current Value | Target Value | Success Criteria       |
-| --------------------------- | ------------- | ------------ | ---------------------- |
-| Time to Productivity (Days) | 8.5 days      | ≤ 5 days     | 40% reduction          |
-| Access Request Cycle Time   | 5.2 days      | ≤ 2 days     | 60% reduction          |
-| Onboarding Completion Rate  | 82%           | ≥ 95%        | Completion improvement |
-| Manual Ticket Volume        | 420/month     | ≤ 200/month  | 50% reduction          |
-
----
-
-### **4. Data Access and Feasibility**
-
-| Source         | Data Retrieved                                | Feasibility                                  |
-| -------------- | --------------------------------------------- | -------------------------------------------- |
-| **Workday**    | Onboarding tasks, step completion times       | API access confirmed                         |
-| **ServiceNow** | Access request tickets, resolution timestamps | Moderate; requires data-sharing agreement    |
-| **SharePoint** | Policy documents on access governance         | Low sensitivity; read-only access sufficient |
+| KPI                        | Current   | Target      | Success Criteria   |
+| -------------------------- | --------- | ----------- | ------------------ |
+| Time-to-Productivity       | 8.5 days  | ≤ 5 days    | 40% improvement    |
+| Access Request Cycle Time  | 5.2 days  | ≤ 2 days    | 60% improvement    |
+| Manual Ticket Volume       | 420/month | ≤ 200/month | 50% reduction      |
+| Onboarding Completion Rate | 82%       | ≥ 95%       | Higher consistency |
 
 ---
 
-### **5. Agent Findings**
+### **4. Agent Findings**
 
 **Pattern Agent:**
 
-* 43% of new hires experience >5-day delay due to pending access approvals.
-* 64% of delays involve the same 3 systems (VPN, Payroll, CRM).
+* 43% of onboarding cases delayed >5 days due to pending access approvals.
+* 64% of delays originate from 3 core systems (VPN, Payroll, CRM).
 
 **KPI Agent:**
 
-* Median onboarding completion = 8.5 days → exceeds 5-day goal by 70%.
-* Access approval backlog correlates with 0.35 productivity index drop.
+* Median onboarding duration: 8.5 days.
+* Deviation from KPI target: +70%.
+* Correlated productivity loss per hire: $350.
 
 **Feasibility Agent:**
 
-* APIs available for auto-triggering access workflows in ServiceNow.
-* Compliance check confirms automation permissible with approval logs.
+* APIs exist for automated ServiceNow ticket generation.
+* Access automation aligns with compliance RAUs.
 
 **Value Agent:**
 
-* Estimated 3.5-day reduction per hire → 30K staff-hours saved annually.
-* Cost avoidance: ~$420,000 in lost productivity recovered per year.
+* Predicted reduction in onboarding time: 3.5 days.
+* Annual value recovery: ~$420K (based on average onboarding cost × staff volume).
+
+**Storycraft Agent:**
+
+* Drafts formal business case with quantified ROI, risks, and implementation roadmap.
 
 ---
 
-### **6. Proposed Solution**
+### **5. Success Criteria**
 
-**AI Onboarding Orchestration Agent**
-
-* Predicts system access needs based on job role and department.
-* Pre-generates ServiceNow access tickets upon Workday hire event.
-* Tracks approval chain, sends reminders, and verifies access completion.
-
----
-
-### **7. Measurable Success Criteria**
-
-| Success Metric                         | Measurement Method   | Review Interval |
-| -------------------------------------- | -------------------- | --------------- |
-| 30% reduction in onboarding time       | Workday task logs    | Monthly         |
-| 50% reduction in manual access tickets | ServiceNow analytics | Monthly         |
-| >90% access approval compliance        | Access audit logs    | Quarterly       |
-| 95% user satisfaction                  | HR survey data       | Biannual        |
+| Measure                   | Target | Source             | Review Cycle |
+| ------------------------- | ------ | ------------------ | ------------ |
+| Onboarding Time Reduction | ≥30%   | Workday Logs       | Monthly      |
+| Access Request Automation | ≥50%   | ServiceNow Metrics | Monthly      |
+| Productivity Gain         | ≥25%   | HR Survey + KPIs   | Quarterly    |
+| Stakeholder Satisfaction  | ≥90%   | HR Feedback Portal | Biannual     |
 
 ---
 
-### **8. Output: Business Case Summary**
+## 7. Comparison: Commercial Process-Mining vs Guided Agentic Discovery
 
-| Element              | Description                                                                       |
-| -------------------- | --------------------------------------------------------------------------------- |
-| **Problem**          | Access approval delays increase onboarding cycle time and cost.                   |
-| **Evidence**         | Data correlation from Workday + ServiceNow shows average 8.5-day onboarding time. |
-| **Solution**         | Deploy AI-driven orchestration agent to preempt and automate access approvals.    |
-| **Expected Benefit** | 3.5-day average reduction in onboarding time, ~$420K cost savings/year.           |
-| **Feasibility**      | APIs and compliance support available; minimal technical debt.                    |
-| **Owner**            | VP HR Operations                                                                  |
-| **Next Step**        | Pilot within 1 department, evaluate in 60 days.                                   |
-
----
-
-## 6. Design Comparison: Open vs Guided Discovery
-
-| Attribute                  | Open-Ended Discovery                | Guided Discovery                        |
-| -------------------------- | ----------------------------------- | --------------------------------------- |
-| **Starting Point**         | Data access across multiple systems | Specific business domain and hypothesis |
-| **Data Governance**        | Broad, loosely controlled           | Scoped per domain with approval         |
-| **Outputs**                | Interesting patterns, correlations  | Business cases with quantified ROI      |
-| **Stakeholder Engagement** | Low; unclear ownership              | High; tied to business KPIs             |
-| **Adoption Likelihood**    | Low (abstract insights)             | High (actionable evidence)              |
-| **Trust and Governance**   | Weak; unclear boundaries            | Strong; governed and auditable          |
+| Attribute                 | Celonis / Skan.ai                | Guided Agentic Discovery             |
+| ------------------------- | -------------------------------- | ------------------------------------ |
+| **Discovery Mode**        | Reactive, event-log-based        | Proactive, hypothesis-driven         |
+| **Scope**                 | Enterprise-wide, domain-agnostic | Domain-specific (HR, IT, Finance)    |
+| **Output Type**           | Process inefficiency report      | Business case with KPI & ROI         |
+| **AI Role**               | Descriptive analytics            | Prescriptive reasoning and synthesis |
+| **Governance**            | Limited contextual governance    | Strict data-scoped access            |
+| **Adoption Readiness**    | Requires manual interpretation   | Ready-to-execute use cases           |
+| **Integration with LLMs** | Minimal (rule-based)             | High (semantic and reasoning-driven) |
 
 ---
 
-## 7. Key Takeaways
+## 8. Strategic Positioning: Beyond Process Mining
 
-1. **Open-ended discovery** looks powerful but fails without domain context, metrics, and constraints.
-2. **Guided discovery** is more mature—it starts with a purpose, integrates metrics, and produces actionable business outcomes.
-3. The transition requires defining:
+Where **Skan.ai** and **Celonis** *describe* how work happens, **Guided Agentic Discovery** *decides what should happen next*.
 
-   * Problem hypothesis
-   * KPIs and success thresholds
-   * Data sources and access boundaries
-   * Ownership and accountability
-4. A **guided agentic discovery system** transforms AI from a pattern finder into a **strategic business accelerator**.
+* **Process Mining = Retrospective Insight**
+  “Here’s how your process flows and where it’s inefficient.”
+* **Guided Agentic Discovery = Strategic Foresight**
+  “Here’s the root cause, its impact, and an executable AI-driven fix tied to KPIs.”
 
 ---
 
-## 8. Recommended Next Steps
+## 9. Key Takeaways
 
-1. Identify **two pilot domains** (e.g., HR Onboarding, IT Incident Management).
-2. Define **baseline metrics and hypotheses** per domain.
-3. Deploy **domain-specific agent pipelines** with limited data access.
-4. Review outputs for **business case quality, feasibility, and ROI**.
-5. Scale across additional domains using the same guided framework.
+1. **Open-ended discovery** and many current commercial tools generate volume, not value.
+2. **Guided discovery** introduces intent, metrics, and governance—producing actionable business cases, not dashboards.
+3. **Agentic discovery frameworks** extend process mining into *continuous, context-aware improvement loops*.
+4. AI must evolve from a **pattern detector** into a **domain reasoning engine** that ties every insight to measurable business outcomes.
 
 ---
 
-## 9. Summary Statement
+## 10. Recommended Next Steps
 
-> **Open-ended agentic discovery** is like giving AI a flashlight in a dark warehouse—it finds a lot, but not necessarily what you need.
-> **Guided agentic discovery** installs lights only where the business works, measures illumination, and ensures every new insight drives measurable value.
+1. Select 2–3 **pilot domains** (e.g., HR Onboarding, IT Incident Management).
+2. Define **baseline KPIs and hypotheses** per domain.
+3. Configure **domain-bound agents** with limited, governed access.
+4. Generate and validate **AI-synthesized business cases**.
+5. Compare results vs. commercial discovery tools to measure business case accuracy and ROI.
+
+---
+
+## 11. Final Summary
+
+> Commercial tools like **Skan.ai** and **Celonis** provide excellent visibility into “how work happens,” but they stop short of *why it matters* and *what to do next*.
+>
+> **Guided Agentic Discovery** goes further—anchoring AI in business domains, success metrics, and organizational strategy to transform raw discovery into high-confidence, high-value decisions.
 
 ---
 
