@@ -79,6 +79,21 @@ The system manages conversation context efficiently.
 - Outputs: PDF and CSV submissions; structured audit logs for every AI decision  
 - Accessibility: WCAG 2.1 AA compliance and mobile optimization  
 
+### Current Technology Stack  
+
+| Layer | Technology | Purpose | Notes |
+|-------|-------------|----------|-------|
+| Frontend | **Next.js 14**, **React 18**, **TypeScript** | UI rendering and routing | Supports server-side and static rendering |
+| Styling | **Tailwind CSS** | Responsive styling | Follows corporate accessibility standards |
+| Backend Runtime | **Node.js 18+** (Next.js API routes) | Handles prompts, context logic, and data flow | Lightweight integrated backend |
+| AI Integration | **GPT-OSS (via Ollama)** | Local LLM API for prompt generation and validation | Runs inside corporate network |
+| Data Storage | **CSV / JSON files** | Stores idea submissions and decision logs | Simple and portable for prototype scale |
+| Document Generation | **jsPDF**, **jspdf-autotable** | Generates branded PDF reports | Client-side PDF export |
+| Testing & QA | **Jest**, **React Testing Library**, **Playwright**, **axe-core** | Unit, regression, and accessibility tests | 100% UI component coverage |
+| Accessibility | **WCAG 2.1 AA** | Ensures usability and compliance | Verified via automated and manual testing |
+
+This stack was intentionally chosen to minimize infrastructure dependencies, ensuring compatibility with the corporate network and immediate deployability.
+
 ## Corporate Network Considerations  
 
 - The corporate network includes a GPT-OSS model that supports API-based access for AI inference  
