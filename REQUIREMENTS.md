@@ -29,7 +29,7 @@
 
 ### Project Objective
 
-Transform Wells Fargo's fragmented intake processes into a unified, AI-guided conversational platform that automatically maps employee responses to structured data across multiple service types (GenAI ideas, analytics requests, automation proposals, support tickets). The configuration-driven architecture enables rapid expansion to new intake types without code changes, deploys in three modes to accommodate any environment, and costs $0-$40 annually per 500 submissions while ensuring complete audit trails.
+Transform Wells Fargo's fragmented intake processes into a unified, AI-guided universal intake platform that automatically maps employee responses to structured data across multiple service types (GenAI ideas, analytics requests, automation proposals, support tickets). The configuration-driven architecture enables rapid expansion to new intake types without code changes, deploys in three modes to accommodate any environment (air-gapped, restricted networks, or cloud-connected), and supports multiple LLM providers while ensuring complete audit trails.
 
 ### Use Case
 
@@ -37,7 +37,7 @@ Wells Fargo employees across departments use the platform to submit GenAI ideas,
 
 ### Experimentation Overview
 
-The platform serves as an experimentation testbed for production-grade AI techniques including prompt engineering with GPT-5 for contextual question generation and response validation, embeddings-based semantic similarity for duplicate detection (planned), and decision logging infrastructure that supports future exploration of RAG (Retrieval-Augmented Generation), vector databases, and autonomous agent architectures. The current implementation deliberately uses direct LLM API calls rather than agents to establish a predictable baseline, enabling Wells Fargo to measure performance improvements as more advanced techniques like multi-agent orchestration, vector-based knowledge retrieval, and hybrid RAG systems are incrementally introduced.
+The platform serves as an experimentation testbed for production-grade AI techniques including advanced prompt engineering for contextual question generation and response validation, embeddings-based semantic similarity for duplicate detection (planned), and decision logging infrastructure that supports future exploration of RAG (Retrieval-Augmented Generation), vector databases, and autonomous agent architectures. The current implementation deliberately uses direct LLM API calls rather than agents to establish a predictable baseline, enabling Wells Fargo to measure performance improvements as more advanced techniques like multi-agent orchestration, vector-based knowledge retrieval, and hybrid RAG systems are incrementally introduced. The architecture supports multiple LLM providers including cloud-based APIs, locally-hosted models, and static configurations for maximum deployment flexibility.
 
 ---
 
@@ -65,18 +65,15 @@ The platform MUST support three deployment modes:
 
 1. **Static Mode**
    - Pre-defined responses, no external AI APIs
-   - Cost: $0/year
    - Use case: Demos, testing, air-gapped environments
 
-2. **Ollama Mode**
-   - Local open-source AI (GPT-OSS 20B)
-   - Cost: $0/year
-   - Use case: Restricted network environments
+2. **Local LLM Mode**
+   - Local open-source models (e.g., via Ollama, LM Studio)
+   - Use case: Restricted network environments, data sovereignty requirements
 
-3. **OpenAI Mode**
-   - Cloud-based GPT-5
-   - Cost: ~$40/year per 500 submissions
-   - Use case: Production with best AI quality
+3. **Cloud LLM Mode**
+   - Cloud-based LLM APIs (e.g., OpenAI, Anthropic, Google, Azure)
+   - Use case: Production deployments with managed AI services
 
 Mode switching MUST be achievable via single environment variable change without code modifications.
 
@@ -99,17 +96,7 @@ The platform MUST ensure:
 - Automated validation of response quality
 - Intelligent follow-up questions for incomplete responses (max 2 per question)
 
-### BR-5: Cost Efficiency
-
-**Priority:** MEDIUM
-**Status:** Complete
-
-The platform MUST maintain low operational costs:
-- Static/Ollama modes: $0/year
-- OpenAI mode: <$0.25 per submission
-- No expensive infrastructure dependencies
-
-### BR-6: Audit Trail
+### BR-5: Audit Trail
 
 **Priority:** HIGH
 **Status:** Complete
@@ -130,7 +117,7 @@ The platform MUST log all AI decisions with:
 **Status:** Complete
 
 #### FR-1.1: Question Flow Management
-- System SHALL present questions in a structured sequence (e.g., Q1-Q10)
+- System SHALL present questions in a service-configured sequence (variable count per service)
 - System SHALL track user progress through question flow
 - System SHALL allow users to review previous answers
 - System SHALL provide progress indicators
@@ -153,13 +140,15 @@ The platform MUST log all AI decisions with:
 **Status:** Complete
 
 #### FR-2.1: Conversation-to-Data Mapping
-- System SHALL automatically map conversational responses to structured CSV fields
-- System SHALL extract implicit information (AI task, method, output) from responses
-- System SHALL populate 39+ fields from 10-question conversation
+- System SHALL automatically map conversational responses to service-defined structured fields
+- System SHALL extract implicit information using LLM analysis from responses
+- System SHALL populate all schema fields from service-configured question flow
 - System SHALL handle missing fields gracefully
 
 #### FR-2.2: AI-Powered Recommendations
-- System SHALL generate 4 intelligent recommendations per submission:
+- System SHALL generate service-specific intelligent recommendations per submission
+- Recommendation types defined by service configuration
+- Example (GenAI service): 4 recommendations
   - Suggested technical approach
   - Suggested KPIs approach
   - Suggested build/buy/partner strategy
@@ -320,8 +309,8 @@ The platform MUST log all AI decisions with:
 - Node.js 18+ LTS (runtime)
 
 #### TR-1.2: AI Integration
-- OpenAI SDK 4.67.1 (GPT-5 support)
-- Ollama compatible API (local AI support)
+- LLM Client SDKs (OpenAI, Anthropic, Google, Azure, etc.)
+- Local model server APIs (Ollama, LM Studio, etc.)
 - Static mode (no external dependencies)
 
 #### TR-1.3: Document Generation
@@ -338,17 +327,18 @@ The platform MUST log all AI decisions with:
 **Priority:** HIGH
 **Status:** Complete
 
-#### TR-2.1: OpenAI Mode
-- GPT-5 model for question generation and validation
-- text-embedding-3-large for duplicate detection (planned)
+#### TR-2.1: Cloud LLM Mode
+- Support for multiple cloud LLM providers (OpenAI, Anthropic, Google, Azure)
+- Advanced language models for question generation and validation
+- Embedding models for duplicate detection (planned)
 - Proper API key management via environment variables
 - Rate limiting and error handling
 
-#### TR-2.2: Ollama Mode
-- GPT-OSS 20B model support
+#### TR-2.2: Local LLM Mode
+- Support for local model servers (Ollama, LM Studio, etc.)
 - OpenAI-compatible API endpoints
-- Local model server at http://localhost:11434
-- Minimum 16GB RAM requirement
+- Configurable model server endpoints
+- Recommended: 16GB+ RAM for optimal performance
 
 #### TR-2.3: Static Mode
 - Pre-defined question flow
@@ -383,7 +373,8 @@ The platform MUST log all AI decisions with:
 
 #### TR-4.1: Environment Variables
 - `.env.example` template provided
-- Support for all three AI modes
+- Support for all three deployment modes
+- LLM provider configuration (API keys, endpoints, model names)
 - Corporate proxy/SSL configuration options
 - Port and host binding configuration
 
@@ -434,9 +425,9 @@ The platform MUST log all AI decisions with:
 │  ┌──────────────────────────────────────────────────────────────┐  │
 │  │                     API Route Handlers                        │  │
 │  │  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │  │
-│  │  │ /api/openai/    │  │  /api/data/     │  │ /api/health/ │ │  │
+│  │  │ /api/llm/       │  │  /api/data/     │  │ /api/health/ │ │  │
 │  │  │ - generate-     │  │  - submit-idea  │  │ - health     │ │  │
-│  │  │   question-v2   │  │  - export-form  │  │ - openai     │ │  │
+│  │  │   question-v2   │  │  - export-form  │  │ - llm        │ │  │
 │  │  │ - analyze       │  │  - check-dup    │  │              │ │  │
 │  │  └────────┬────────┘  └────────┬────────┘  └──────────────┘ │  │
 │  └───────────┼────────────────────┼──────────────────────────────┘  │
@@ -466,15 +457,15 @@ The platform MUST log all AI decisions with:
 │  │ └────────────┘ │ │  │  │   dict.csv │ │  │  │ • context    │ │
 │  │                │ │  │  └────────────┘ │  │  │ • response   │ │
 │  │ ┌────────────┐ │ │  │       OR        │  │  │ • tokens     │ │
-│  │ │ Ollama     │◄┼─┼──┼─ ┌────────────┐ │  │  └──────────────┘ │
-│  │ │ (Local AI) │ │ │  │  │ PostgreSQL │ │  │                    │
-│  │ │ :11434     │ │ │  │  │ • ideas    │ │  │  ┌──────────────┐ │
+│  │ │ Local LLM  │◄┼─┼──┼─ ┌────────────┐ │  │  └──────────────┘ │
+│  │ │ (Ollama,   │ │ │  │  │ PostgreSQL │ │  │                    │
+│  │ │  LM Studio)│ │ │  │  │ • ideas    │ │  │  ┌──────────────┐ │
 │  │ └────────────┘ │ │  │  │ • sessions │ │  │  │ App Logs     │ │
 │  │                │ │  │  │ • logs     │ │  │  │ (./logs/)    │ │
 │  │ ┌────────────┐ │ │  │  └────────────┘ │  │  │ • errors     │ │
-│  │ │ OpenAI     │◄┼─┼─┐│                  │  │  │ • access     │ │
-│  │ │ GPT-5 API  │ │ │ ││                  │  │  │ • debug      │ │
-│  │ │ (Cloud)    │ │ │ ││                  │  │  └──────────────┘ │
+│  │ │ Cloud LLM  │◄┼─┼─┐│                  │  │  │ • access     │ │
+│  │ │ (OpenAI,   │ │ │ ││                  │  │  │ • debug      │ │
+│  │ │ Anthropic) │ │ │ ││                  │  │  └──────────────┘ │
 │  │ └────────────┘ │ │ ││                  │  │                    │
 │  └────────────────┘ │ ││                  │  └────────────────────┘
 │                     │ ││                  │
@@ -493,8 +484,9 @@ The platform MUST log all AI decisions with:
            ┌────────────────────────┐
            │   EXTERNAL SERVICES    │
            │   ─────────────────    │
-           │   • api.openai.com     │
-           │     (GPT-5, Embeddings)│
+           │   • Cloud LLM APIs     │
+           │     (OpenAI, Anthropic,│
+           │      Google, Azure)    │
            │   • Corporate Proxy    │
            │     (if behind firewall)│
            └────────────────────────┘
@@ -548,10 +540,11 @@ The platform MUST log all AI decisions with:
 │  │  LAYER 4: Deployment Mode Configuration                  │  │
 │  │  ┌──────────────────────────▼────────────────────────┐  │  │
 │  │  │ .env (Environment Variables)                       │  │  │
-│  │  │ NEXT_PUBLIC_AI_MODE=static|openai|ollama          │  │  │
+│  │  │ NEXT_PUBLIC_AI_MODE=static|cloud|local            │  │  │
 │  │  │ ────────────────────────────────────────────────  │  │  │
-│  │  │ • OPENAI_API_KEY (if openai mode)                 │  │  │
-│  │  │ • OLLAMA_BASE_URL (if ollama mode)                │  │  │
+│  │  │ • LLM_PROVIDER (openai|anthropic|google|azure)    │  │  │
+│  │  │ • LLM_API_KEY (for cloud mode)                    │  │  │
+│  │  │ • LOCAL_LLM_URL (for local mode)                  │  │  │
 │  │  │ • APP_PORT, HOST                                  │  │  │
 │  │  │ • Performance tuning flags                        │  │  │
 │  │  └────────────────────────────────────────────────────┘  │  │
@@ -591,11 +584,11 @@ The platform MUST log all AI decisions with:
    │
    ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  QUESTION-ANSWER CYCLE (Repeat Q1-Q10)                      │
+│  QUESTION-ANSWER CYCLE (Service-Configured Questions)       │
 │                                                              │
 │  ┌──────────────────┐                                       │
-│  │ Present Question │  System: "What is the business        │
-│  │     (Q1-Q10)     │           problem you want to solve?" │
+│  │ Present Question │  System: Service-specific question    │
+│  │   (Q1...QN)      │           (e.g., "What problem...")   │
 │  └────────┬─────────┘                                       │
 │           │                                                  │
 │           ▼                                                  │
@@ -636,13 +629,13 @@ The platform MUST log all AI decisions with:
 │                │                                            │
 │                ▼                                            │
 │  ┌──────────────────┐                                      │
-│  │ Move to Next Q   │  Repeat for Q2, Q3, ..., Q10         │
+│  │ Move to Next Q   │  Repeat for all configured questions │
 │  └──────────────────┘                                      │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
            │
            ▼
-4. CONVERSATION COMPLETE (All Q1-Q10 answered)
+4. CONVERSATION COMPLETE (All service questions answered)
    │
    ▼
 ┌─────────────────────────────────────────────────────────────┐
@@ -651,11 +644,11 @@ The platform MUST log all AI decisions with:
 │  ┌──────────────────────────────────────────────────────┐ │
 │  │ Step 1: Intelligent Field Mapping (LLM)              │ │
 │  │ ────────────────────────────────────────────────     │ │
-│  │ Input: Full conversation history (Q1-Q10)            │ │
-│  │ Process: LLM analyzes and maps to 39 CSV fields     │ │
-│  │ Output: Structured data object                       │ │
+│  │ Input: Full conversation history (all questions)     │ │
+│  │ Process: LLM analyzes and maps to service schema     │ │
+│  │ Output: Structured data object (service-specific)    │ │
 │  │                                                       │ │
-│  │ Example Mapping:                                     │ │
+│  │ Example Mapping (GenAI service):                     │ │
 │  │ Q2 response → problem_statement                      │ │
 │  │ Q3 response → ai_solution_approach                   │ │
 │  │ Q4 response → core_kpis, efficiency_metrics          │ │
@@ -692,9 +685,9 @@ The platform MUST log all AI decisions with:
 ┌─────────────────────┐
 │  Review Page        │  User sees all collected data
 │  ─────────────      │
-│  • 39 fields filled │  Options:
+│  • All fields shown │  Options:
 │  • AI suggestions   │  1. Download PDF (Wells Fargo form)
-│  • Edit if needed   │  2. Submit to CSV
+│  • Edit if needed   │  2. Submit to CSV/Database
 └──────────┬──────────┘
            │
       ┌────┴────┐
@@ -714,17 +707,173 @@ The platform MUST log all AI decisions with:
               └───────────────┘
 ```
 
+### System Inputs & Outputs Diagram
+
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│                           SYSTEM INPUTS                                   │
+│                     (Configuration-Driven Architecture)                   │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────┐     ┌──────────────────────────────┐
+│   SERVICE-SPECIFIC CONFIGURATION    │     │    USER INTERACTIONS         │
+│   ───────────────────────────       │     │    ────────────────          │
+│                                     │     │                              │
+│ Per-Service Config Files:           │     │ 1. Conversational Responses  │
+│                                     │     │    • Question N responses    │
+│ 1. Question Flow Config             │     │    • Based on service config │
+│    • questionCriteria_[service].ts  │     │    • Variable # of questions │
+│    • Service-specific question seq  │     │    • Dynamic follow-ups      │
+│    • Validation criteria per Q      │     │                              │
+│    • Follow-up rules & limits       │     │    Examples by Service:      │
+│    • Example responses              │     │    ────────────────────      │
+│                                     │     │    • GenAI: 10 questions     │
+│ 2. Data Schema Definition           │     │      (39 CSV fields)         │
+│    • data_dictionary_[service].md   │     │    • Analytics: 8 questions  │
+│    • Service-specific field count   │     │      (25 CSV fields)         │
+│    • Field names, types, descriptions│    │    • Automation: 12 questions│
+│    • Required vs optional flags     │     │      (35 CSV fields)         │
+│    • User/AI/system field markers   │     │    • Support: 6 questions    │
+│                                     │     │      (18 CSV fields)         │
+│ 3. Field Mapping Logic              │     │                              │
+│    • csvMapper_[service].ts         │     │ 2. User Metadata             │
+│    • Conversation → Schema mapping  │     │    • Submitter info          │
+│    • AI extraction rules            │     │    • Department/BU           │
+│    • Recommendation generation      │     │    • Session context         │
+│                                     │     │                              │
+│ 4. Service-Specific Configs         │     │                              │
+│    • PDF templates per service      │     │                              │
+│    • Branding & layout rules        │     │                              │
+│    • Export format options          │     │                              │
+│                                     │     │                              │
+└──────────────────┬──────────────────┘     └──────────┬───────────────────┘
+                   │                                   │
+                   │                                   │
+                   └───────────────┬───────────────────┘
+                                   │
+                                   ▼
+            ┌──────────────────────────────────────────────────┐
+            │         PROCESSING LAYER                         │
+            │         ────────────────                         │
+            │         (Service-Agnostic Engine)                │
+            │                                                  │
+            │  ┌───────────────────────────────────────────┐  │
+            │  │  1. LLM Analysis & Validation             │  │
+            │  │     • Dynamic question generation         │  │
+            │  │     • Criteria-based validation           │  │
+            │  │     • Adaptive follow-up generation       │  │
+            │  │     • Intelligent field extraction        │  │
+            │  │     • Service-specific recommendations    │  │
+            │  └───────────────────────────────────────────┘  │
+            │                                                  │
+            │  ┌───────────────────────────────────────────┐  │
+            │  │  2. Data Mapping & Transformation         │  │
+            │  │     • Conversation → Schema fields        │  │
+            │  │     • User-provided fields                │  │
+            │  │     • LLM-extracted fields                │  │
+            │  │     • System-generated fields             │  │
+            │  │     • Metadata compilation                │  │
+            │  └───────────────────────────────────────────┘  │
+            │                                                  │
+            │  ┌───────────────────────────────────────────┐  │
+            │  │  3. Decision Logging                      │  │
+            │  │     • Log all LLM interactions            │  │
+            │  │     • Capture input/output context        │  │
+            │  │     • Record token usage & costs          │  │
+            │  │     • Track execution time                │  │
+            │  └───────────────────────────────────────────┘  │
+            │                                                  │
+            └────────────────────┬─────────────────────────────┘
+                                 │
+                                 ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│                           SYSTEM OUTPUTS                                  │
+│                       (Per-Service Formatting)                            │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────┐    ┌──────────────────────────────────┐
+│   PRIMARY OUTPUTS            │    │   OPTIONAL/FUTURE OUTPUTS        │
+│   ───────────────            │    │   ────────────────────           │
+│                              │    │                                  │
+│ 1. Local CSV Storage         │    │ 1. PostgreSQL Database           │
+│    • [service]_intakes.csv   │    │    • Structured relational data  │
+│    • Service-specific schema │    │    • Multi-table design          │
+│    • Variable field count    │    │    • Query/reporting capability  │
+│    • Excel/Sheets compatible │    │    • Concurrent access support   │
+│    • Append-only writes      │    │                                  │
+│                              │    │ 2. Follow-on API Integrations    │
+│ 2. PDF Forms (Downloadable)  │    │    • REST/GraphQL endpoints      │
+│    • Wells Fargo branded     │    │    • Webhook notifications       │
+│    • Service-specific layout │    │    • Third-party systems         │
+│    • All schema fields shown │    │    • Analytics platforms         │
+│    • Audit-ready format      │    │    • Service-specific payloads   │
+│                              │    │                                  │
+│ 3. Decision Logs (CSV)       │    │ 3. Admin Dashboard               │
+│    • decision_logs.csv       │    │    • Cross-service analytics     │
+│    • Complete audit trail    │    │    • LLM usage metrics           │
+│    • LLM call details        │    │    • Decision log analysis       │
+│    • Service type tracked    │    │    • Per-service reports         │
+│    • Token usage tracking    │    │    • Comparative analytics       │
+│    • Execution timestamps    │    │                                  │
+│                              │    │ 4. Email Notifications           │
+│ 4. User Confirmation         │    │    • Submission confirmations    │
+│    • Success/error messages  │    │    • Status updates              │
+│    • Submission ID           │    │    • Review reminders            │
+│    • Download links          │    │    • Service-specific templates  │
+│                              │    │                                  │
+└──────────────────────────────┘    └──────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                        DATA FLOW SUMMARY                                  │
+│                        ────────────────                                  │
+│                   (Universal Configuration-Driven Flow)                   │
+│                                                                          │
+│  Service Config Files (Questions, Schema, Mapping) + User Responses      │
+│           │                                                              │
+│           ▼                                                              │
+│  LLM Processing (Dynamic Question Gen, Validation, Field Extraction)     │
+│           │                                                              │
+│           ▼                                                              │
+│  Data Mapping (Conversation → Service-Specific Schema Fields)            │
+│           │                                                              │
+│           ▼                                                              │
+│  Outputs: CSV + PDF + Decision Logs → Optional: Database/APIs            │
+│                                                                          │
+│  ┌────────────────────────────────────────────────────────────────────┐ │
+│  │ EXAMPLE SERVICE CONFIGURATIONS:                                    │ │
+│  │ • GenAI Ideas: 10 questions → 39 CSV fields                       │ │
+│  │ • Analytics Support: 8 questions → 25 CSV fields                  │ │
+│  │ • Automation Intake: 12 questions → 35 CSV fields                 │ │
+│  │ • Support Requests: 6 questions → 18 CSV fields                   │ │
+│  └────────────────────────────────────────────────────────────────────┘ │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
 ---
 
 ## Data Requirements
 
-### DR-1: Data Schema
+### DR-1: Data Schema Architecture
 
 **Priority:** HIGH
-**Status:** Complete (GenAI service)
+**Status:** Framework Complete (GenAI service implemented, others planned)
 
-#### DR-1.1: GenAI Ideas Schema
-The system SHALL support a 39-field CSV schema organized as:
+The platform uses a **service-specific schema architecture** where each intake type defines its own data structure, field count, and validation rules through configuration files. This enables the platform to support diverse intake types without code changes.
+
+#### DR-1.1: Schema Configuration Approach
+
+Each service SHALL have:
+- Independent data dictionary (e.g., `data_dictionary_genai.md`)
+- Service-specific field definitions with types, descriptions, and constraints
+- Custom field count based on business requirements (not fixed)
+- Separate CSV mappers for conversation-to-data transformation
+
+#### DR-1.2: GenAI Ideas Schema (Example Implementation)
+
+**Status:** ✅ Implemented
+
+The GenAI service implements a 39-field CSV schema organized as:
 
 **Identity Fields (4):**
 - opportunity_id (UUID)
@@ -781,7 +930,26 @@ The system SHALL support a 39-field CSV schema organized as:
 - last_modified
 - other_details
 
-### DR-2: Decision Log Schema
+#### DR-1.3: Planned Service Schemas (Examples)
+
+**Analytics Support Schema** (Planned - Phase 2)
+- Estimated field count: ~25 fields
+- Focus areas: Request details, data sources, deliverables, timeline, stakeholders
+- Question flow: ~8 questions
+
+**Automation Intake Schema** (Planned - Phase 2)
+- Estimated field count: ~35 fields
+- Focus areas: Process details, automation scope, ROI metrics, technical requirements
+- Question flow: ~12 questions
+
+**Support Request Schema** (Planned - Phase 2)
+- Estimated field count: ~18 fields
+- Focus areas: Issue description, priority, affected systems, urgency, resolution tracking
+- Question flow: ~6 questions
+
+**Key Design Principle:** Each service's schema is independently designed based on its unique business requirements. The platform architecture supports any field count and question flow through configuration—no code changes required to add new service types.
+
+### DR-2: Decision Log Schema (Universal)
 
 **Priority:** HIGH
 **Status:** Complete
@@ -816,7 +984,7 @@ Decision logs SHALL capture:
 - No PII required for submissions
 - User IDs can be Wells Fargo employee IDs
 - All data stored on internal infrastructure only
-- No data sent to external services except OpenAI API (if using OpenAI mode)
+- No data sent to external services except cloud LLM APIs (if using Cloud LLM mode)
 
 ---
 
@@ -876,9 +1044,9 @@ Decision logs SHALL capture:
 **Status:** Partial
 
 - CSV storage keeps all data on-premises (✅)
-- OpenAI mode sends conversation data to external API (⚠️)
-- Ollama/Static modes keep all data internal (✅)
-- Future: Enterprise OpenAI agreement with data residency guarantees
+- Cloud LLM mode sends conversation data to external APIs (⚠️)
+- Local LLM/Static modes keep all data internal (✅)
+- Future: Enterprise LLM agreements with data residency guarantees
 
 ---
 
@@ -907,15 +1075,15 @@ Decision logs SHALL capture:
 **Static Mode:**
 - No additional requirements
 
-**Ollama Mode:**
-- Ollama installation
-- GPT-OSS 20B model (~12GB download)
-- 16GB RAM minimum
+**Local LLM Mode:**
+- Local model server (Ollama, LM Studio, etc.)
+- Model files downloaded locally
+- 16GB RAM minimum recommended
 - Local model server running
 
-**OpenAI Mode:**
-- OpenAI API key
-- Internet access to api.openai.com
+**Cloud LLM Mode:**
+- Cloud LLM provider API key
+- Internet access to provider API endpoints
 - Corporate proxy configuration (if applicable)
 
 ### DEP-2: Network Requirements
@@ -924,7 +1092,7 @@ Decision logs SHALL capture:
 **Status:** Complete
 
 - Internal firewall rules: Allow inbound on port 3073 (or configured port)
-- Outbound access to api.openai.com (if using OpenAI mode)
+- Outbound access to cloud LLM provider APIs (if using Cloud LLM mode)
 - DNS resolution for internal access
 - Support for corporate proxy (if applicable)
 
@@ -948,7 +1116,7 @@ Decision logs SHALL capture:
 **Status:** Defined
 
 - Health check endpoint: `/api/health`
-- OpenAI health check: `/api/health/openai` (if applicable)
+- LLM provider health check: `/api/health/llm` (if applicable)
 - Log rotation for `./logs/` directory
 - Daily backup of `./data/` directory
 - Monthly dependency updates
@@ -966,7 +1134,7 @@ Decision logs SHALL capture:
 - Component tests using Jest and React Testing Library
 - 22 tests passing with 100% component coverage
 - Test coverage for all critical business logic
-- Mock external dependencies (OpenAI API, file system)
+- Mock external dependencies (LLM APIs, file system)
 
 ### TEST-2: Accessibility Testing
 
@@ -1026,11 +1194,11 @@ Decision logs SHALL capture:
 
 **Status:** ✅ ACHIEVED (for GenAI service)
 
-- [x] Conversational flow guides user through all required questions
+- [x] Conversational flow guides user through service-configured questions
 - [x] Response validation with intelligent follow-ups (max 2 per question)
 - [x] "I Don't Know" assistance generates contextual suggestions
-- [x] 39 fields automatically populated from conversation
-- [x] AI-powered recommendations generated (4 per submission)
+- [x] All schema fields automatically populated from conversation
+- [x] AI-powered recommendations generated (service-specific count)
 - [x] PDF generation produces Wells Fargo branded forms
 - [x] CSV export appends data with proper formatting
 - [x] Decision logging captures all AI interactions
@@ -1053,16 +1221,7 @@ Decision logs SHALL capture:
 - [x] Cross-platform compatibility (Windows/Mac/Linux)
 - [x] Cross-browser compatibility (Chrome/Firefox/Safari/Edge)
 
-### SC-4: Cost Success
-
-**Status:** ✅ ACHIEVED
-
-- [x] Static mode: $0/year operational cost
-- [x] Ollama mode: $0/year operational cost
-- [x] OpenAI mode: <$0.25 per submission ($0.03-$0.25 range)
-- [x] No expensive infrastructure dependencies
-
-### SC-5: Scalability Success
+### SC-4: Scalability Success
 
 **Status:** ✅ ACHIEVED
 
@@ -1071,7 +1230,7 @@ Decision logs SHALL capture:
 - [x] CSV storage suitable for 500-1000 submissions
 - [x] PostgreSQL migration path available for higher volumes
 
-### SC-6: User Experience Success
+### SC-5: User Experience Success
 
 **Status:** ✅ ACHIEVED (pending user feedback)
 
@@ -1121,14 +1280,15 @@ Items planned for future experimentation:
 
 ## Appendix A: Glossary
 
-- **AI Mode**: Deployment configuration (Static, Ollama, OpenAI)
+- **Deployment Mode**: Platform configuration (Static, Local LLM, Cloud LLM)
 - **Criteria Validation**: Checking if response meets defined requirements
 - **CSV Mapper**: Service that transforms conversation to structured data
 - **Decision Log**: Audit record of AI decision with full context
 - **Field Mapping**: Process of extracting data from conversation to CSV fields
 - **Follow-up Question**: AI-generated clarifying question (max 2 per main question)
-- **LLM**: Large Language Model (e.g., GPT-5)
-- **Ollama**: Local AI model server for open-source models
+- **LLM**: Large Language Model (e.g., GPT-4, Claude, Gemini)
+- **Local LLM Mode**: Deployment using locally-hosted AI models (Ollama, LM Studio)
+- **Cloud LLM Mode**: Deployment using cloud-based AI APIs (OpenAI, Anthropic, Google, Azure)
 - **Question Criteria**: Validation rules defining what information is needed
 - **Service Tile**: UI entry point for specific intake type
 - **Static Mode**: No-AI mode using pre-defined responses
