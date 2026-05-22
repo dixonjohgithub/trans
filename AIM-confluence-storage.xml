@@ -1,0 +1,365 @@
+<ac:structured-macro ac:name="info" ac:schema-version="1">
+  <ac:parameter ac:name="title">Page Guide</ac:parameter>
+  <ac:rich-text-body>
+    <p><strong>Owner:</strong> Principal AI Engineering &nbsp;|&nbsp; <strong>Status:</strong> MVP0 Live &middot; MVP1 In Development &nbsp;|&nbsp; <strong>Audience:</strong> Product Owners, Portfolio Managers, Executive Sponsors &nbsp;|&nbsp; <strong>Updated:</strong> May 2026</p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+
+<ac:structured-macro ac:name="toc" ac:schema-version="1">
+  <ac:parameter ac:name="maxLevel">2</ac:parameter>
+  <ac:parameter ac:name="style">disc</ac:parameter>
+</ac:structured-macro>
+
+<p>&nbsp;</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TL;DR -->
+<!-- ═══════════════════════════════════════════ -->
+<h1>TL;DR &mdash; One Paragraph</h1>
+
+<ac:structured-macro ac:name="info" ac:schema-version="1">
+  <ac:parameter ac:name="title">Summary</ac:parameter>
+  <ac:rich-text-body>
+    <p>AIM &mdash; the <strong>Agentic Intake Model</strong> &mdash; is not a better form. It is <strong>decision quality infrastructure</strong>: a system that intercepts work requests at the moment evidence is generated and ensures every funding decision the organization makes is supported by complete, unique, classified, and compliant information. It directly moves <strong>four costs</strong> the organization is already paying: Epic backlog hygiene failures, refinement and review meeting overhead, AI story creation tool quality gaps caused by missing intake context, and portfolio redundancy that surfaces only after execution has begun. MVP0 is live. The ask is funding to complete the remaining three MVPs that convert an intake enforcement tool into a full portfolio governance capability.</p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+
+<p>&nbsp;</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- THE PROBLEM -->
+<!-- ═══════════════════════════════════════════ -->
+<h1>The Problem</h1>
+
+<h2>The Intake Stage Is the Only Stage with No Visibility</h2>
+
+<p>The organization tracks work from Epic creation forward. Dashboards exist. Hygiene scores exist. AI adoption metrics are reported. But the stage <em>before</em> the Epic &mdash; where the idea enters, gets evaluated, and either advances or dies &mdash; has no tracking, no metrics, and no visibility.</p>
+
+<p>This matters because <strong>every quality failure that appears at the Epic level originated at the intake stage</strong>. Epics with missing business value, missing titles, and incomplete fields did not become incomplete at the Epic stage. They were incomplete when submitted as ideas, and the incompleteness was never caught.</p>
+
+<ac:structured-macro ac:name="warning" ac:schema-version="1">
+  <ac:parameter ac:name="title">The Gap</ac:parameter>
+  <ac:rich-text-body>
+    <p>The organization has dashboards starting at the Epic. AIM builds the upstream layer those dashboards have never had &mdash; making the idea stage traceable, measurable, and enforceable for the first time.</p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+
+<h2>Four Costs Being Paid Right Now</h2>
+
+<table>
+  <colgroup>
+    <col style="width: 18%;" />
+    <col style="width: 82%;" />
+  </colgroup>
+  <tbody>
+    <tr>
+      <th><ac:structured-macro ac:name="status" ac:schema-version="1"><ac:parameter ac:name="colour">Red</ac:parameter><ac:parameter ac:name="title">Cost 1</ac:parameter></ac:structured-macro></th>
+      <th>Backlog Hygiene Failures</th>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Epics enter the backlog with missing business value and incomplete fields. Someone catches this during sprint planning or a hygiene review &mdash; weeks after the submission. The correction happens at the worst possible time, under delivery pressure, and the root cause (intake incompleteness) is never addressed at the source.</td>
+    </tr>
+    <tr>
+      <th><ac:structured-macro ac:name="status" ac:schema-version="1"><ac:parameter ac:name="colour">Red</ac:parameter><ac:parameter ac:name="title">Cost 2</ac:parameter></ac:structured-macro></th>
+      <th>Refinement &amp; Review Meeting Overhead</th>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Refinement meetings exist because intake submissions are not complete or clear enough to evaluate without additional conversation. Each meeting consumes the time of 4&ndash;6 people. This overhead recurs every sprint cycle &mdash; not as a one-time cost, but as a structural tax on review capacity that compounds indefinitely.</td>
+    </tr>
+    <tr>
+      <th><ac:structured-macro ac:name="status" ac:schema-version="1"><ac:parameter ac:name="colour">Red</ac:parameter><ac:parameter ac:name="title">Cost 3</ac:parameter></ac:structured-macro></th>
+      <th>AI Story Creation Tool Quality Gap</th>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><p>The organization has mandated adoption of an internal AI-powered agile story creation tool. The tool is in use &mdash; but hygiene issues persist and adoption is still maturing. The deeper problem is not the tool itself: <strong>a story creation tool is only as good as the intake information that feeds it.</strong></p><p>Product teams are creating stories, but the submitter &mdash; the person who actually knows what they need &mdash; has already moved on. The richest, most accurate context lives in the intake conversation and is never systematically captured or transferred. AIM closes this gap by capturing that context at submission time and feeding it directly into the story creation tool, producing stories that are more accurate, more complete, and genuinely compliant &mdash; not just structurally generated.</p></td>
+    </tr>
+    <tr>
+      <th><ac:structured-macro ac:name="status" ac:schema-version="1"><ac:parameter ac:name="colour">Red</ac:parameter><ac:parameter ac:name="title">Cost 4</ac:parameter></ac:structured-macro></th>
+      <th>Portfolio Redundancy Is Invisible Until Expensive</th>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Two teams can submit overlapping initiatives in the same quarter, both get approved, both begin execution, and the duplication surfaces weeks later in a steering committee. At that point the cost is sunk. There is no structural mechanism to surface overlap at submission time &mdash; before resources are committed.</td>
+    </tr>
+  </tbody>
+</table>
+
+<ac:structured-macro ac:name="panel" ac:schema-version="1">
+  <ac:parameter ac:name="borderStyle">solid</ac:parameter>
+  <ac:parameter ac:name="borderColor">#0052CC</ac:parameter>
+  <ac:parameter ac:name="bgColor">#F4F8FF</ac:parameter>
+  <ac:rich-text-body>
+    <p><em>&ldquo;The organization does not have an intake problem. It has a decision quality problem that manifests as intake symptoms &mdash; and intake is the only place in the workflow where that problem can be caught before it becomes expensive.&rdquo;</em></p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+
+<p>&nbsp;</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- THE SOLUTION -->
+<!-- ═══════════════════════════════════════════ -->
+<h1>The Solution &mdash; Four MVPs, One Model</h1>
+
+<p>AIM is a conversational AI agent &mdash; built on Google Agentspace with a React frontend and FastAPI + Google ADK backend &mdash; that intercepts each work submission and applies intelligence at the point where evidence is generated, before any human reviewer touches it. Each MVP is independently deployable and builds on the previous one.</p>
+
+<table>
+  <colgroup>
+    <col style="width: 10%;" />
+    <col style="width: 12%;" />
+    <col style="width: 42%;" />
+    <col style="width: 36%;" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>MVP</th>
+      <th>Status</th>
+      <th>What It Does</th>
+      <th>What It Fixes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>MVP0</strong><br/>Intake Quality</td>
+      <td><ac:structured-macro ac:name="status" ac:schema-version="1"><ac:parameter ac:name="colour">Green</ac:parameter><ac:parameter ac:name="title">LIVE</ac:parameter></ac:structured-macro></td>
+      <td>A conversational agent guides submitters through intake questions using the product owner&rsquo;s existing guidelines &mdash; encoded in versioned YAML. If a submitter cannot answer a question, the agent coaches them to a compliant response. No submission exits without passing validation on every required field.</td>
+      <td>Eliminates the upstream cause of Epic hygiene failures. Enforces quality at the moment of evidence generation &mdash; not during sprint planning.</td>
+    </tr>
+    <tr>
+      <td><strong>MVP1</strong><br/>Duplicate Detection</td>
+      <td><ac:structured-macro ac:name="status" ac:schema-version="1"><ac:parameter ac:name="colour">Yellow</ac:parameter><ac:parameter ac:name="title">IN DEV</ac:parameter></ac:structured-macro></td>
+      <td>Three-layer duplicate detection before any submission advances: exact match against Jira, fuzzy match on wording variations, and semantic match using Vertex AI embeddings to catch meaning-level duplicates. Detection covers active development <em>and</em> production &mdash; not just the backlog. Submitters are shown existing work and choose to collaborate or proceed.</td>
+      <td>Surfaces portfolio overlaps at submission time &mdash; before approval and before resources are committed. Eliminates the steering committee discovery moment.</td>
+    </tr>
+    <tr>
+      <td><strong>MVP2</strong><br/>Classification &amp; OKR Alignment</td>
+      <td><ac:structured-macro ac:name="status" ac:schema-version="1"><ac:parameter ac:name="colour">Blue</ac:parameter><ac:parameter ac:name="title">PLANNED</ac:parameter></ac:structured-macro></td>
+      <td>Every validated, deduplicated submission is classified: net-new Epic, feature on an existing Epic, automation request, AI initiative, analytics, or support. Paired with OKR alignment tagging and portfolio position &mdash; connecting each submission to the strategic framework at intake time. Routing sends submissions to the correct queue and team by work type.</td>
+      <td>Makes portfolio composition visible and OKR alignment auditable in real time. Converts intake from a volume queue into a strategic filter.</td>
+    </tr>
+    <tr>
+      <td><strong>MVP3</strong><br/>Artifact Generation</td>
+      <td><ac:structured-macro ac:name="status" ac:schema-version="1"><ac:parameter ac:name="colour">Blue</ac:parameter><ac:parameter ac:name="title">PLANNED</ac:parameter></ac:structured-macro></td>
+      <td>The mandated AI story creation tool is already in use &mdash; but it is only as good as the information it receives. When product teams create stories from approved ideas, they are working without the submitter&rsquo;s full context. AIM changes this: upon approval, the validated, structured intake data is fed directly into the story creation tool, ensuring stories are generated from the richest possible source of truth.</td>
+      <td>Feeds the mandated story creation tool with verified intake context &mdash; improving story quality, accelerating adoption compliance, and contributing to AI generation metrics at scale.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- METRICS BRIDGE -->
+<!-- ═══════════════════════════════════════════ -->
+<h1>Metrics Bridge &mdash; What You Already Track and How AIM Moves It</h1>
+
+<ac:structured-macro ac:name="info" ac:schema-version="1">
+  <ac:parameter ac:name="title">Why This Table Matters</ac:parameter>
+  <ac:rich-text-body>
+    <p>You do not need to believe new metrics matter. AIM directly moves numbers you are <strong>already accountable for</strong>, reported in dashboards that <strong>already exist</strong>. Every row below shows the causal line from AIM&rsquo;s outputs to your existing measurement framework.</p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+
+<table>
+  <colgroup>
+    <col style="width: 18%;" />
+    <col style="width: 26%;" />
+    <col style="width: 16%;" />
+    <col style="width: 40%;" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Metric You Own</th>
+      <th>Current State (Without AIM)</th>
+      <th>AIM Mechanism</th>
+      <th>How It Moves</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Epic Backlog Hygiene Score</strong></td>
+      <td>Epics enter with missing fields; caught during sprint planning or hygiene reviews &mdash; after the cost is sunk</td>
+      <td>MVP0 Quality Enforcement</td>
+      <td>Quality is enforced at submission. An incomplete idea cannot advance to an Epic. The hygiene score improves structurally &mdash; not through cleanup campaigns</td>
+    </tr>
+    <tr>
+      <td><strong>AI-Generated Story Count (Agile Tool)</strong></td>
+      <td>The mandated story creation tool is in use but hygiene issues persist. Stories are generated by product teams &mdash; not by the submitters who hold the real context. Intake information is not systematically transferred, resulting in stories that are structurally generated but contextually incomplete.</td>
+      <td>MVP3 Artifact Generation</td>
+      <td>AIM captures the submitter&rsquo;s full context at intake and feeds it directly into the mandated story creation tool. Stories become accurate and complete &mdash; not just generated. Adoption quality improves alongside adoption volume, and every AIM-powered submission counts toward the AI generation metric structurally.</td>
+    </tr>
+    <tr>
+      <td><strong>AI-Refined Story Count (Agile Tool)</strong></td>
+      <td>Refinement happens in meetings and async threads after stories are created &mdash; because the intake context was never captured upfront. Rework is common and costly, and the root cause is never addressed.</td>
+      <td>MVP0 Coaching Agent</td>
+      <td>By capturing rich, validated intake context and feeding it to the story creation tool, AIM eliminates the primary cause of story rework. The agent&rsquo;s coaching sessions also constitute AI-assisted refinement events at the intake stage &mdash; upstream of where refinement currently happens, and far less expensive.</td>
+    </tr>
+    <tr>
+      <td><strong>Refinement Meeting Frequency</strong></td>
+      <td>Meetings called because submitted ideas are too incomplete to evaluate without additional conversation</td>
+      <td>MVP0 Completeness Gate</td>
+      <td>When ideas arrive complete and clear, fewer meetings are called to resolve ambiguity. Frequency declines as a direct consequence of intake quality improvement</td>
+    </tr>
+    <tr>
+      <td><strong>Intake Velocity (Idea &rarr; Decision)</strong></td>
+      <td>Not currently tracked. No visibility into how long ideas sit in the idea board before reaching a decision or how much business value is held up in stalled backlogs</td>
+      <td>AIM-Created Metric</td>
+      <td>AIM introduces this measurement for the first time. Baseline established at go-live; used to demonstrate cycle time compression and quantify the business value held up in backlog states</td>
+    </tr>
+    <tr>
+      <td><strong>OKR Coverage Rate</strong></td>
+      <td>Assessed manually during planning cycles; not tracked in real time; no audit trail connecting intake submissions to strategic priorities</td>
+      <td>MVP2 Classification</td>
+      <td>Every submission receives an OKR alignment tag at intake time. Coverage is queryable on demand &mdash; which OKRs have work in the pipeline, which are empty, which are over-weighted</td>
+    </tr>
+    <tr>
+      <td><strong>Portfolio Redundancy Events</strong></td>
+      <td>Discovered retrospectively in steering committees after execution has begun; no proactive detection mechanism exists</td>
+      <td>MVP1 Deduplication</td>
+      <td>Overlap is detected at submission time and surfaced to the submitter before approval. Redundancy events are eliminated at the source rather than managed after the fact</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- WHAT'S IN IT PER AUDIENCE -->
+<!-- ═══════════════════════════════════════════ -->
+<h1>What&rsquo;s Directly In It &mdash; By Audience</h1>
+
+<table>
+  <colgroup>
+    <col style="width: 18%;" />
+    <col style="width: 82%;" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Audience</th>
+      <th>Direct Benefit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Product Owner</strong></td>
+      <td>Submissions arrive complete. Fewer refinement meetings. The mandated story creation tool gets richer input &mdash; producing stories that engineering teams can actually execute without rework. No change to your existing toolchain; AIM feeds the process you already run with higher-fidelity information.</td>
+    </tr>
+    <tr>
+      <td><strong>Portfolio Manager</strong></td>
+      <td>A live view of what the portfolio actually contains &mdash; classified by work type, tagged by OKR, and cleared of duplicates &mdash; assembled automatically from every approved submission. Stop discovering redundancy after it&rsquo;s expensive. Answer &ldquo;what are we building?&rdquo; with structured data, not a research project.</td>
+    </tr>
+    <tr>
+      <td><strong>Executive Sponsor</strong></td>
+      <td>Portfolio composition becomes deliberate rather than incidental. OKR alignment is auditable in real time. AI adoption metrics improve structurally. Compliance exposure from incomplete artifacts is eliminated at the source &mdash; not caught in audits.</td>
+    </tr>
+    <tr>
+      <td><strong>Engineering Team</strong></td>
+      <td>Epics arrive in the backlog already complete &mdash; with titles, business value, acceptance criteria, dependency links, and regulatory tags populated. Sprint planning starts from a compliant artifact, not a template that needs to be finished before work can begin.</td>
+    </tr>
+    <tr>
+      <td><strong>Compliance / Risk</strong></td>
+      <td>Regulatory tags (AI/GenAI, automation, data) are applied automatically at classification. Artifact compliance is a creation-time condition &mdash; not an audit-time finding. AIM produces an auditable evidence chain from submission through approval.</td>
+    </tr>
+    <tr>
+      <td><strong>AI Adoption Lead</strong></td>
+      <td>The mandate for the story creation tool is in place &mdash; AIM makes that mandate easier to fulfill and produces better outcomes from it. Every AIM-powered submission feeds the tool with validated intake context, improving both adoption quality and metric volume structurally rather than through individual effort.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PILOT ASK -->
+<!-- ═══════════════════════════════════════════ -->
+<h1>The Pilot Ask</h1>
+
+<p>We are not asking for full AIM funding today. We are asking for one product owner&rsquo;s intake process and 30 days to demonstrate outcomes against metrics you already own.</p>
+
+<ac:structured-macro ac:name="panel" ac:schema-version="1">
+  <ac:parameter ac:name="title">30-Day Pilot &mdash; What You Get</ac:parameter>
+  <ac:parameter ac:name="borderStyle">solid</ac:parameter>
+  <ac:parameter ac:name="borderColor">#0052CC</ac:parameter>
+  <ac:parameter ac:name="bgColor">#DEEBFF</ac:parameter>
+  <ac:rich-text-body>
+    <p>Run one existing intake type through AIM. At the end of 30 days, we deliver three measurements &mdash; all against data you already track:</p>
+    <ol>
+      <li><strong>Refinement meeting hours eliminated</strong> during the pilot period &mdash; compared to your baseline for that intake type</li>
+      <li><strong>Submission completeness before vs. after</strong> &mdash; scored against your existing hygiene criteria</li>
+      <li><strong>AI-generated story contributions</strong> logged in the agile tool from AIM-powered submissions, with richer intake context feeding the tool than currently exists</li>
+    </ol>
+    <p><em>&ldquo;AIM either moves your numbers or it doesn&rsquo;t. 30 days will tell you &mdash; with your own submissions, in your own environment, against metrics you are already accountable for. No additional tooling required.&rdquo;</em></p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+
+<p>&nbsp;</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- DIAGNOSTIC QUESTIONS -->
+<!-- ═══════════════════════════════════════════ -->
+<h1>The Diagnostic Questions</h1>
+
+<p>Before any demo, open with this question and let the answer surface the problem:</p>
+
+<ac:structured-macro ac:name="panel" ac:schema-version="1">
+  <ac:parameter ac:name="borderStyle">solid</ac:parameter>
+  <ac:parameter ac:name="borderColor">#0052CC</ac:parameter>
+  <ac:parameter ac:name="bgColor">#F4F8FF</ac:parameter>
+  <ac:rich-text-body>
+    <p><em>&ldquo;When you see an Epic with missing business value in your hygiene dashboard &mdash; do you know <strong>when</strong> that information went missing? Was it missing when the idea was submitted, or did it get lost in translation somewhere between idea and Epic?&rdquo;</em></p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+
+<p>They will not know the answer. Nobody can &mdash; because the idea stage is not tracked. The follow-up:</p>
+
+<ac:structured-macro ac:name="note" ac:schema-version="1">
+  <ac:parameter ac:name="title">The Follow-Up</ac:parameter>
+  <ac:rich-text-body>
+    <p>&ldquo;We know the answer. It was missing at submission. We can show you, because we built the tracking layer that has never existed before. And we can show you that if you enforce completeness at submission, it doesn&rsquo;t go missing &mdash; because there is no translation step. The intake captures it, validates it, and carries it forward into the Epic automatically.&rdquo;</p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+
+<h2>Additional Questions by Pain Point</h2>
+
+<table>
+  <colgroup>
+    <col style="width: 18%;" />
+    <col style="width: 42%;" />
+    <col style="width: 40%;" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>If You Suspect This Pain&hellip;</th>
+      <th>Ask This</th>
+      <th>What a Revealing Answer Sounds Like</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Refinement overhead</td>
+      <td>&ldquo;How many rounds of back-and-forth does your team go through before a submission is ready to evaluate &mdash; and who&rsquo;s doing that work?&rdquo;</td>
+      <td>&ldquo;Usually 2 or 3 rounds. The PMs handle it.&rdquo; &rarr; That&rsquo;s reviewer capacity spent on information retrieval, not evaluation.</td>
+    </tr>
+    <tr>
+      <td>Portfolio redundancy</td>
+      <td>&ldquo;Has your organization ever funded work that turned out to already be in progress somewhere else?&rdquo;</td>
+      <td>A pause, or a specific story. Either one confirms the problem is real and has already cost something.</td>
+    </tr>
+    <tr>
+      <td>AI story tool quality gap</td>
+      <td>&ldquo;Your story creation tool is mandated &mdash; but when product teams create stories from approved ideas, do they have the full context the submitter had? Or are they working from a summary and filling in gaps?&rdquo;</td>
+      <td>&ldquo;They do their best.&rdquo; &rarr; The submitter&rsquo;s knowledge leaves the process at intake. AIM captures it and transfers it &mdash; so the tool that&rsquo;s already mandated actually has what it needs to produce accurate stories.</td>
+    </tr>
+    <tr>
+      <td>OKR alignment</td>
+      <td>&ldquo;If I asked you right now what percentage of your active intake submissions are aligned to your current OKRs &mdash; could you answer that without building a report?&rdquo;</td>
+      <td>&ldquo;No.&rdquo; &rarr; The alignment exists in planning documents, not in operational data. OKRs govern what gets written, not what gets built.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>&nbsp;</p>
+<hr/>
+<p><em>Agentic Intake Model (AIM) &middot; AI Engineering &amp; Platforms &middot; Confidential &mdash; Internal Use Only &middot; MVP0 Live &middot; Built on Google Agentspace &middot; Vertex AI &middot; FastAPI &middot; React</em></p>
