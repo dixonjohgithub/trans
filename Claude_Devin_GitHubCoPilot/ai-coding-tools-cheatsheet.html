@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Coding Tools Cheat-Sheet</title>
+<style>
+  :root{
+    --copilot:#2563eb;
+    --claude:#c2551c;
+    --devin:#7c3aed;
+    --ink:#1a1a1a;
+    --muted:#5c5c5c;
+    --line:#e2e2e2;
+    --bg:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    margin:0;
+    background:#f3f4f6;
+  }
+  .page{
+    max-width:1000px;
+    margin:24px auto;
+    background:var(--bg);
+    padding:28px 34px 26px;
+    box-shadow:0 2px 14px rgba(0,0,0,.08);
+    border-radius:6px;
+  }
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-bottom:3px solid var(--ink);
+    padding-bottom:10px;
+    margin-bottom:6px;
+  }
+  h1{font-size:22px;margin:0;letter-spacing:-.3px;}
+  .sub{font-size:11px;color:var(--muted);margin-top:3px;}
+  .legend{display:flex;gap:14px;font-size:11px;font-weight:600;}
+  .legend span{display:flex;align-items:center;gap:5px;}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .d-copilot{background:var(--copilot);}
+  .d-claude{background:var(--claude);}
+  .d-devin{background:var(--devin);}
+  table{width:100%;border-collapse:collapse;margin-top:12px;}
+  th{
+    text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px;
+    color:var(--muted);padding:5px 8px;border-bottom:1.5px solid var(--line);
+  }
+  td{padding:6px 8px;font-size:11.5px;vertical-align:top;border-bottom:1px solid #f0f0f0;line-height:1.35;}
+  tr:nth-child(even) td{background:#fafafa;}
+  .cat{font-weight:600;width:26%;}
+  .pick{width:15%;font-weight:700;white-space:nowrap;}
+  .pill{
+    display:inline-block;padding:1px 7px;border-radius:10px;color:#fff;font-size:10px;
+    font-weight:700;letter-spacing:.2px;
+  }
+  .p-copilot{background:var(--copilot);}
+  .p-claude{background:var(--claude);}
+  .p-devin{background:var(--devin);}
+  .why{color:#333;width:59%;}
+  .model{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px;
+  }
+  .card{border:1px solid var(--line);border-radius:6px;padding:10px 12px;}
+  .card h3{margin:0 0 4px;font-size:12.5px;display:flex;align-items:center;gap:6px;}
+  .card p{margin:0;font-size:11px;color:#333;line-height:1.4;}
+  footer{margin-top:14px;font-size:9.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:7px;}
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;max-width:100%;padding:14px 18px;border-radius:0;}
+    @page{size:A4 landscape;margin:10mm;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <h1>AI Coding Tools &mdash; Pick the Right One</h1>
+      <div class="sub">GitHub Copilot &middot; Claude (Claude Code) &middot; Devin.AI &nbsp;|&nbsp; Enterprise team development &middot; July 2026</div>
+    </div>
+    <div class="legend">
+      <span><i class="dot d-copilot"></i>Copilot</span>
+      <span><i class="dot d-claude"></i>Claude</span>
+      <span><i class="dot d-devin"></i>Devin</span>
+    </div>
+  </header>
+
+  <table>
+    <thead>
+      <tr><th class="cat">Category</th><th class="pick">Best fit</th><th class="why">Why</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="cat">Inline code completion</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Core strength — fast ghost-text in every major IDE, unlimited with no per-request billing.</td></tr>
+      <tr><td class="cat">Rapid fix-run-verify loops</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Agent mode iterates in-editor (edit &rarr; test &rarr; fix) with the tightest loop. Claude does it headless from the terminal.</td></tr>
+      <tr><td class="cat">Unit test generation (volume)</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Cheap and fast at boilerplate/scaffolding. Switch to Claude for rigorous edge-case coverage.</td></tr>
+      <tr><td class="cat">Debugging (complex root-cause)</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Best multi-file reasoning to trace subtle logic bugs, not just the obvious surface fix.</td></tr>
+      <tr><td class="cat">Refactoring (general)</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Strong cross-module refactors that preserve intent. Copilot fine for small localized ones.</td></tr>
+      <tr><td class="cat">Refactoring under strict arch rules</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">CLAUDE.md agent files + subagents enforce naming, layering, and quality constraints across the change.</td></tr>
+      <tr><td class="cat">Long-form architecture explanation</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Clearest, most thorough reasoning for design docs and the &ldquo;why&rdquo; behind decisions.</td></tr>
+      <tr><td class="cat">Documentation / storytelling</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Best prose quality and coherent narrative for READMEs, guides, and rationale.</td></tr>
+      <tr><td class="cat">Security review</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Dedicated review workflows and deep diff reasoning to flag vulnerabilities.</td></tr>
+      <tr><td class="cat">Jira ticket &rarr; PR lifecycle</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">Purpose-built: assign a Jira/Linear ticket, it plans, codes, tests, and opens a PR. 20+ native integrations.</td></tr>
+      <tr><td class="cat">Branch / commit / push execution</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">Runs the full Git lifecycle hands-off in its own sandbox. Claude does it from terminal with a human in the loop.</td></tr>
+      <tr><td class="cat">Parallel agent development</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">&ldquo;Managed Devins,&rdquo; each with its own VM, run independent tickets in parallel. Claude subagents split one task.</td></tr>
+      <tr><td class="cat">Async offloading of scoped work</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">Best when you hand off self-contained tickets and get a PR back without supervising.</td></tr>
+      <tr><td class="cat">Shared instructions / agent files</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">CLAUDE.md gives persistent, version-controlled team conventions re-read every turn.</td></tr>
+      <tr><td class="cat">Day-to-day enterprise delivery</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Broadest IDE reach, predictable unlimited completions, native GitHub PR flow &mdash; safest org default.</td></tr>
+      <tr><td class="cat">Cost predictability at scale</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Flat completion tier plus premium-request metering is easiest to budget across many seats.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="model">
+    <div class="card"><h3><i class="dot d-copilot"></i>Reach for Copilot</h3><p>In-editor speed and org-wide default delivery: completions, quick loops, everyday PRs across the whole team.</p></div>
+    <div class="card"><h3><i class="dot d-claude"></i>Reach for Claude</h3><p>Reasoning-heavy work: architecture, strict-rule refactors, deep debugging, docs, security, and team agent files.</p></div>
+    <div class="card"><h3><i class="dot d-devin"></i>Reach for Devin</h3><p>Autonomous, ticket-driven, parallel offloading: hand off scoped Jira tickets and get PRs back unsupervised.</p></div>
+  </div>
+
+  <footer>One-page decision aid. Capabilities evolve quickly &mdash; verify current features and pricing before standardizing. Sources: GitHub Copilot &amp; Devin docs, Claude Code subagent/CLAUDE.md guides (2026).</footer>
+</div>
+</body>
+</html>

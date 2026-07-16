@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Coding Tools — Token Efficiency Cheat-Sheet</title>
+<style>
+  :root{
+    --copilot:#2563eb;
+    --claude:#c2551c;
+    --devin:#7c3aed;
+    --ink:#1a1a1a;
+    --muted:#5c5c5c;
+    --line:#e2e2e2;
+    --bg:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);margin:0;background:#f3f4f6;
+  }
+  .page{
+    max-width:1020px;margin:24px auto;background:var(--bg);
+    padding:26px 32px 22px;box-shadow:0 2px 14px rgba(0,0,0,.08);border-radius:6px;
+  }
+  header{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    border-bottom:3px solid var(--ink);padding-bottom:9px;margin-bottom:8px;
+  }
+  h1{font-size:21px;margin:0;letter-spacing:-.3px;}
+  .sub{font-size:11px;color:var(--muted);margin-top:3px;}
+  .legend{display:flex;gap:14px;font-size:11px;font-weight:600;}
+  .legend span{display:flex;align-items:center;gap:5px;}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .d-copilot{background:var(--copilot);}
+  .d-claude{background:var(--claude);}
+  .d-devin{background:var(--devin);}
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:14px 0 7px;}
+  .ctx{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+  .card{border:1px solid var(--line);border-radius:6px;padding:11px 13px;border-top:3px solid var(--ink);}
+  .card.copilot{border-top-color:var(--copilot);}
+  .card.claude{border-top-color:var(--claude);}
+  .card.devin{border-top-color:var(--devin);}
+  .card h3{margin:0 0 5px;font-size:12.5px;display:flex;align-items:center;gap:6px;}
+  .win{font-size:15px;font-weight:800;margin:0 0 5px;}
+  .card p{margin:0;font-size:10.7px;color:#333;line-height:1.45;}
+  table{width:100%;border-collapse:collapse;margin-top:4px;}
+  th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:5px 8px;border-bottom:1.5px solid var(--line);}
+  td{padding:6px 8px;font-size:11.5px;vertical-align:top;border-bottom:1px solid #f0f0f0;line-height:1.35;}
+  tr:nth-child(even) td{background:#fafafa;}
+  .cat{font-weight:600;width:29%;}
+  .pick{width:16%;font-weight:700;white-space:nowrap;}
+  .pill{display:inline-block;padding:1px 7px;border-radius:10px;color:#fff;font-size:9.5px;font-weight:700;}
+  .p-copilot{background:var(--copilot);}
+  .p-claude{background:var(--claude);}
+  .p-devin{background:var(--devin);}
+  .why{color:#333;}
+  .guard{margin-top:12px;border:1px solid var(--line);border-radius:6px;padding:10px 13px;background:#fafafa;}
+  .guard h2{margin:0 0 5px;}
+  .guard ul{margin:0;padding-left:16px;}
+  .guard li{font-size:10.7px;color:#333;line-height:1.55;}
+  footer{margin-top:11px;font-size:9.3px;color:var(--muted);border-top:1px solid var(--line);padding-top:6px;}
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;max-width:100%;padding:12px 16px;border-radius:0;}
+    @page{size:A4 landscape;margin:9mm;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <h1>AI Coding Tools &mdash; Token Efficiency</h1>
+      <div class="sub">GitHub Copilot &middot; Claude &middot; Devin.AI &nbsp;|&nbsp; Choosing the right tool to conserve tokens &middot; July 2026</div>
+    </div>
+    <div class="legend">
+      <span><i class="dot d-copilot"></i>Copilot</span>
+      <span><i class="dot d-claude"></i>Claude</span>
+      <span><i class="dot d-devin"></i>Devin</span>
+    </div>
+  </header>
+
+  <p style="font-size:11px;color:#333;line-height:1.5;margin:4px 0 2px;">
+    Tokens are the units of work these tools consume &mdash; roughly, the amount of code and text a tool reads and writes to do a job. How much of the codebase a tool holds in view at once, and how it works through a task, drives how many tokens it uses. Matching the tool to the job is the main lever for keeping token use &mdash; and therefore cost &mdash; under control.
+  </p>
+
+  <h2>How much each tool holds in view at once</h2>
+  <div class="ctx">
+    <div class="card copilot">
+      <h3><i class="dot d-copilot"></i>GitHub Copilot</h3>
+      <p class="win">Focused slice</p>
+      <p>Works close to what the developer is doing &mdash; reads a small, relevant portion of the project by default, and widens to take in more only when a larger task calls for it. Naturally lean on tokens.</p>
+    </div>
+    <div class="card claude">
+      <h3><i class="dot d-claude"></i>Claude</h3>
+      <p class="win">Very large view</p>
+      <p>Can hold a very large amount of the codebase in view in a single session &mdash; enough to reason across an entire project at once. Powerful for big-picture work, but the more it holds, the more tokens it uses.</p>
+    </div>
+    <div class="card devin">
+      <h3><i class="dot d-devin"></i>Devin.AI</h3>
+      <p class="win">Managed automatically</p>
+      <p>Handles context on its own behind the scenes. There is no window to manage &mdash; it pulls in whatever a task needs, works through it independently, and its internal steps stay out of your day-to-day token use.</p>
+    </div>
+  </div>
+
+  <h2>Which tool conserves the most tokens, by use case</h2>
+  <table>
+    <thead>
+      <tr><th class="cat">Use case</th><th class="pick">Most efficient</th><th class="why">Rationale</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="cat">Everyday coding &amp; repetitive work</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Handles the highest-volume routine coding with the lightest token draw &mdash; the right home for frequent, small tasks.</td></tr>
+      <tr><td class="cat">Fast trial-and-error loops</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Works through many small steps on its own without re-reading the whole project each time, keeping token use low.</td></tr>
+      <tr><td class="cat">Generating routine tests</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Produces repetitive, predictable code with a light token footprint.</td></tr>
+      <tr><td class="cat">Quick questions &amp; small edits</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Small, self-contained requests that don't need much of the codebase loaded in.</td></tr>
+      <tr><td class="cat">Understanding a whole codebase / large refactor</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Takes in the whole project in one pass, avoiding repeated back-and-forth that re-reads the same code over and over.</td></tr>
+      <tr><td class="cat">Deep reasoning done in a few passes</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Concentrates high-value thinking into a few large, efficient passes rather than many scattered ones.</td></tr>
+      <tr><td class="cat">Documentation &amp; architecture write-ups</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">A single focused pass covers the work; keep the scope tight to hold token use down.</td></tr>
+      <tr><td class="cat">Long, hands-off tasks</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">Runs unattended and manages its own context, so its many internal steps don't add to your token use.</td></tr>
+      <tr><td class="cat">Open-ended, exploratory work</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">Offloads unpredictable, sprawling work so token use stays contained and predictable.</td></tr>
+      <tr><td class="cat">Many tasks running in parallel</td><td class="pick"><span class="pill p-devin">Devin</span> / <span class="pill p-claude">Claude</span></td><td class="why">Devin runs many independent tasks at once; Claude reuses shared context across parallel branches to avoid duplicating work.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="guard">
+    <h2>Principles for keeping token use down</h2>
+    <ul>
+      <li><strong>Match the tool to the job:</strong> use the lightest-touch tool that can do the work; reserve the heavyweight, fully autonomous options for tasks that truly need them.</li>
+      <li><strong>Keep the scope tight:</strong> a large capacity is a ceiling, not a target &mdash; point tools at the parts of the project that matter, since everything held in view adds to token use.</li>
+      <li><strong>Route routine work to the lightest tool:</strong> everyday coding carries the smallest footprint &mdash; keep high-frequency work there and save the big tools for big problems.</li>
+      <li><strong>Offload long or parallel jobs to the autonomous agent:</strong> unattended, multi-step work adds up quickly when done interactively.</li>
+      <li><strong>Keep instructions stable:</strong> consistent project and team guidance lets tools reuse prior understanding instead of reprocessing it each time.</li>
+    </ul>
+  </div>
+
+  <footer>High-level decision aid for tool selection. Capabilities evolve quickly &mdash; reconfirm current details before standardizing across teams.</footer>
+</div>
+</body>
+</html>

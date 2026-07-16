@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise AI Engineering Playbook (2026)</title>
+<style>
+  :root{
+    --copilot:#2563eb;
+    --claude:#c2551c;
+    --devin:#7c3aed;
+    --ink:#1a1a1a;
+    --muted:#5c5c5c;
+    --line:#e2e2e2;
+    --bg:#ffffff;
+    --ok:#15803d;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);margin:0;background:#f3f4f6;line-height:1.5;
+  }
+  .page{
+    max-width:980px;margin:24px auto;background:var(--bg);
+    padding:0 0 30px;box-shadow:0 2px 16px rgba(0,0,0,.09);border-radius:8px;overflow:hidden;
+  }
+  /* cover */
+  .cover{background:linear-gradient(120deg,#1e293b 0%,#334155 55%,#3f2d52 100%);color:#fff;padding:38px 44px 30px;}
+  .cover .kick{font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.75;margin:0 0 8px;}
+  .cover h1{font-size:30px;margin:0;letter-spacing:-.6px;line-height:1.1;}
+  .cover .tagline{font-size:13px;opacity:.9;margin-top:10px;max-width:640px;line-height:1.5;}
+  .cover .tools{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:5px 11px;border-radius:20px;font-size:11.5px;font-weight:600;}
+  .cdot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .d-copilot{background:#60a5fa;}
+  .d-claude{background:#fb923c;}
+  .d-devin{background:#c4b5fd;}
+  .cover .meta{font-size:10.5px;opacity:.7;margin-top:16px;}
+
+  .body{padding:22px 44px 0;}
+
+  /* contents */
+  .toc{background:#fafafa;border:1px solid var(--line);border-radius:7px;padding:14px 18px;margin-bottom:8px;}
+  .toc h2{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:0 0 8px;}
+  .toc ol{margin:0;padding-left:20px;}
+  .toc li{font-size:12px;margin:4px 0;}
+  .toc a{color:#1d4ed8;text-decoration:none;}
+  .toc a:hover{text-decoration:underline;}
+  .toc .desc{color:var(--muted);}
+
+  h2.sect{font-size:17px;margin:30px 0 4px;letter-spacing:-.2px;padding-top:6px;}
+  .sect-num{color:var(--muted);font-weight:600;font-size:13px;}
+  .sect-rule{height:3px;background:var(--ink);border:0;margin:4px 0 12px;}
+  h3.sub{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:20px 0 8px;border-bottom:1px solid var(--line);padding-bottom:5px;}
+  p.lead{font-size:12px;color:#333;margin:8px 0;}
+  .legend{display:flex;gap:16px;font-size:11px;font-weight:600;margin:10px 0;}
+  .legend span{display:flex;align-items:center;gap:5px;}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .dc-copilot{background:var(--copilot);}
+  .dc-claude{background:var(--claude);}
+  .dc-devin{background:var(--devin);}
+  .note{font-size:10.8px;color:#333;background:#fdf6ec;border:1px solid #f0e0c8;border-radius:5px;padding:8px 11px;margin:10px 0;line-height:1.45;}
+
+  table{width:100%;border-collapse:collapse;table-layout:fixed;margin:6px 0 4px;}
+  th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;padding:7px 9px;color:var(--muted);border-bottom:1.5px solid var(--line);}
+  td{font-size:10.8px;vertical-align:top;padding:7px 9px;border-bottom:1px solid #f0f0f0;line-height:1.4;color:#2a2a2a;}
+  tr:nth-child(even) td{background:#fbfbfb;}
+  .pill{display:inline-block;padding:1px 7px;border-radius:10px;color:#fff;font-size:9px;font-weight:700;white-space:nowrap;}
+  .p-copilot{background:var(--copilot);}
+  .p-claude{background:var(--claude);}
+  .p-devin{background:var(--devin);}
+  code{background:#f0f0f2;border:1px solid #e4e4e7;border-radius:3px;padding:0 4px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;}
+
+  /* observations matrix */
+  table.matrix col.aspect{width:14%;}
+  table.matrix col.tool{width:28.66%;}
+  table.matrix th.tool{color:#fff;font-size:13px;font-weight:800;padding:8px 11px;}
+  table.matrix th.copilot{background:var(--copilot);}
+  table.matrix th.claude{background:var(--claude);}
+  table.matrix th.devin{background:var(--devin);}
+  table.matrix td.aspect{font-weight:700;font-size:9.6px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);background:#fafafa;}
+  table.matrix td.copilot{border-left:3px solid var(--copilot);background:#f7f9ff;}
+  table.matrix td.claude{border-left:3px solid var(--claude);background:#fff8f4;}
+  table.matrix td.devin{border-left:3px solid var(--devin);background:#faf7ff;}
+  table.matrix tr:nth-child(even) td{background:inherit;}
+  table.matrix tr.summary td{font-weight:600;font-size:11px;color:#1a1a1a;background:#f2f2f2;}
+  .surf{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
+  .badge{display:inline-flex;align-items:center;gap:3px;font-size:8.6px;font-weight:700;padding:2px 6px;border-radius:9px;background:#e6f4ea;color:var(--ok);border:1px solid #bfe3ca;}
+
+  /* decision & token tables */
+  table.dec col.c1{width:29%;} table.dec col.c2{width:16%;} table.dec col.c3{width:55%;}
+  table.dec td.cat{font-weight:600;}
+
+  /* context cards */
+  .ctx{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin:8px 0;}
+  .card{border:1px solid var(--line);border-radius:6px;padding:11px 13px;border-top:3px solid var(--ink);}
+  .card.copilot{border-top-color:var(--copilot);}
+  .card.claude{border-top-color:var(--claude);}
+  .card.devin{border-top-color:var(--devin);}
+  .card h4{margin:0 0 5px;font-size:12px;display:flex;align-items:center;gap:6px;}
+  .card .win{font-size:14px;font-weight:800;margin:0 0 5px;}
+  .card p{margin:0;font-size:10.3px;color:#333;line-height:1.42;}
+
+  /* best-practice tables */
+  .toolhead{color:#fff;padding:8px 13px;border-radius:5px 5px 0 0;font-size:14px;font-weight:800;margin-top:16px;}
+  .toolhead .tag{font-size:10px;font-weight:600;opacity:.9;}
+  .toolhead.copilot{background:var(--copilot);}
+  .toolhead.claude{background:var(--claude);}
+  .toolhead.devin{background:var(--devin);}
+  table.bp col.cat{width:22%;}
+  table.bp td.cat{font-weight:700;color:#1a1a1a;font-size:10.4px;background:#fafafa;}
+  .b-copilot table.bp td.cat{border-left:3px solid var(--copilot);}
+  .b-claude table.bp td.cat{border-left:3px solid var(--claude);}
+  .b-devin table.bp td.cat{border-left:3px solid var(--devin);}
+  .na{color:var(--muted);font-style:italic;}
+
+  .guard{margin:12px 0;border:1px solid var(--line);border-radius:6px;padding:11px 14px;background:#fafafa;}
+  .guard h3{margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);border:0;padding:0;}
+  .guard ul{margin:0;padding-left:17px;}
+  .guard li{font-size:11px;color:#333;line-height:1.55;margin:2px 0;}
+
+  footer{margin:26px 44px 0;font-size:9.6px;color:var(--muted);border-top:1px solid var(--line);padding-top:9px;}
+  a.back{font-size:9.5px;color:#1d4ed8;text-decoration:none;float:right;}
+
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;max-width:100%;border-radius:0;}
+    .cover,.toolhead,table.matrix th,table.matrix td.copilot,table.matrix td.claude,table.matrix td.devin,.pill,.badge,.card{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    a.back{display:none;}
+    tr,td,.toolhead,.card,.ctx{break-inside:avoid;}
+    h2.sect{break-before:page;}
+    h2.sect:first-of-type{break-before:auto;}
+    @page{size:A4 portrait;margin:12mm;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <p class="kick">Enterprise Standard</p>
+    <h1>Enterprise AI Engineering Playbook</h1>
+    <p class="tagline">A practical standard for adopting AI coding tools across engineering teams &mdash; when to use which, how to keep token use disciplined, and how to configure each tool well.</p>
+    <div class="tools">
+      <span class="chip"><i class="cdot d-copilot"></i>GitHub Copilot</span>
+      <span class="chip"><i class="cdot d-claude"></i>Claude Code</span>
+      <span class="chip"><i class="cdot d-devin"></i>Devin AI</span>
+    </div>
+    <p class="meta">Edition 2026 &middot; Audience: engineering leadership &amp; practitioners &middot; Assumes a VS Code + command-line environment</p>
+  </div>
+
+  <div class="body">
+
+    <!-- CONTENTS -->
+    <div class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#s1">Executive Summary &amp; Tool Overview</a> <span class="desc">&mdash; positioning, key observations, and when to use which tool</span></li>
+        <li><a href="#s2">Use Cases &amp; Token Efficiency</a> <span class="desc">&mdash; right tool per task and how to conserve tokens</span></li>
+        <li><a href="#s3">Configuration &amp; Best Practices</a> <span class="desc">&mdash; memory, plan mode, context, subagents, MCP, secrets, per tool</span></li>
+      </ol>
+    </div>
+
+    <!-- ============ SECTION 1 ============ -->
+    <h2 class="sect" id="s1"><span class="sect-num">01 &nbsp;</span>Executive Summary &amp; Tool Overview</h2>
+    <hr class="sect-rule">
+
+    <p class="lead">These three tools are complementary, not interchangeable. Standardizing on <em>one</em> leaves value on the table; the goal is to route each kind of work to the tool suited for it. In one line each:</p>
+    <p class="lead"><strong style="color:var(--copilot)">GitHub Copilot</strong> is the always-on default inside VS Code that speeds up everyday development for the whole team. <strong style="color:var(--claude)">Claude Code</strong> is the deep thinker &mdash; via the VS Code extension and command line &mdash; for work that needs careful reasoning across an entire codebase. <strong style="color:var(--devin)">Devin AI</strong> is the autonomous worker on its own platform for handing off well-scoped tasks to run start to finish.</p>
+
+    <div class="note"><strong>Environment assumption:</strong> VS Code is the supported IDE and Claude Desktop is not in scope &mdash; Claude Code is used through its VS Code extension and command-line tool. Badges below show only the surfaces used in this environment.</div>
+
+    <h3 class="sub">Key observations at a glance <a class="back" href="#s1">&uarr; top</a></h3>
+    <table class="matrix">
+      <colgroup><col class="aspect"><col class="tool"><col class="tool"><col class="tool"></colgroup>
+      <thead>
+        <tr><th class="aspect">&nbsp;</th><th class="tool copilot">GitHub Copilot</th><th class="tool claude">Claude Code</th><th class="tool devin">Devin AI</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="aspect">How it's used</td>
+          <td class="copilot"><div class="surf"><span class="badge">VS Code &#10003;</span><span class="badge">CLI &#10003;</span><span class="badge">Web &#10003;</span></div>First-class in VS Code (suggestions, chat, agent mode), plus a command-line tool and a web presence on the source-control platform. Works within tools you already have.</td>
+          <td class="claude"><div class="surf"><span class="badge">VS Code &#10003;</span><span class="badge">CLI &#10003;</span></div>The VS Code extension (inline diffs, reads the editor's error list) and the command-line tool (scripting, automation), which share history. Edits stay in the local project.</td>
+          <td class="devin"><div class="surf"><span class="badge">VS Code &#10003;</span><span class="badge">Web &#10003;</span><span class="badge">Own app &#10003;</span></div>Primarily its own hosted platform where work runs in the cloud; a VS Code extension manages those remote sessions. Also a desktop app.</td>
+        </tr>
+        <tr>
+          <td class="aspect">Agentic mode</td>
+          <td class="copilot">In-editor agent edits across files, runs commands, and fixes its own errors; a background cloud agent turns a tracked issue into a reviewable change.</td>
+          <td class="claude">Plans and carries out multi-step changes, runs commands, and verifies results; can split a job across parallel helper agents reporting to a lead.</td>
+          <td class="devin">A fully autonomous engineer: learns the codebase, writes and tests code, and produces a reviewable change end to end, re-planning around obstacles.</td>
+        </tr>
+        <tr>
+          <td class="aspect">Key differentiator</td>
+          <td class="copilot">Ubiquity &mdash; lives in the tools developers use daily; easiest to adopt org-wide.</td>
+          <td class="claude">Depth &mdash; strongest reasoning + widest view of a codebase, guided by shareable team instructions.</td>
+          <td class="devin">Autonomy &mdash; delegate a whole task and it manages the full lifecycle unsupervised.</td>
+        </tr>
+        <tr>
+          <td class="aspect">Where it excels</td>
+          <td class="copilot">Everyday coding, fast loops, routine tests, consistent delivery across a large team.</td>
+          <td class="claude">Architecture, complex debugging, disciplined refactoring, documentation, unfamiliar codebases.</td>
+          <td class="devin">Long hands-off tasks, migrations, bulk maintenance, many jobs in parallel.</td>
+        </tr>
+        <tr class="summary">
+          <td class="aspect">In a sentence</td>
+          <td class="copilot">The everyday default in VS Code for the whole team.</td>
+          <td class="claude">The deep thinker for whole-codebase reasoning.</td>
+          <td class="devin">The autonomous worker for hands-off tasks.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub">When to use which tool, by engineering task <a class="back" href="#s1">&uarr; top</a></h3>
+    <table class="dec">
+      <colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+      <thead><tr><th>Task</th><th>Best fit</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td class="cat">Inline code completion</td><td><span class="pill p-copilot">Copilot</span></td><td>Fast suggestions in the editor are its core strength.</td></tr>
+        <tr><td class="cat">Rapid fix-run-verify loops</td><td><span class="pill p-copilot">Copilot</span></td><td>Agent mode iterates in-editor with the tightest loop; Claude does it headless from the CLI.</td></tr>
+        <tr><td class="cat">Unit test generation (volume)</td><td><span class="pill p-copilot">Copilot</span></td><td>Fast at boilerplate scaffolding; use Claude for rigorous edge-case coverage.</td></tr>
+        <tr><td class="cat">Debugging (complex root-cause)</td><td><span class="pill p-claude">Claude</span></td><td>Best multi-file reasoning to trace subtle bugs, not just the surface fix.</td></tr>
+        <tr><td class="cat">Refactoring (general)</td><td><span class="pill p-claude">Claude</span></td><td>Strong cross-module refactors that preserve intent.</td></tr>
+        <tr><td class="cat">Refactoring under strict architecture rules</td><td><span class="pill p-claude">Claude</span></td><td>Instruction files + subagents enforce naming, layering, and quality constraints.</td></tr>
+        <tr><td class="cat">Long-form architecture explanation</td><td><span class="pill p-claude">Claude</span></td><td>Clearest reasoning for design docs and the &ldquo;why&rdquo; behind decisions.</td></tr>
+        <tr><td class="cat">Documentation quality</td><td><span class="pill p-claude">Claude</span></td><td>Best prose and coherent narrative for guides and rationale.</td></tr>
+        <tr><td class="cat">Security review</td><td><span class="pill p-claude">Claude</span></td><td>Careful diff reasoning to surface vulnerabilities.</td></tr>
+        <tr><td class="cat">Ticket &rarr; PR lifecycle (from a tracker)</td><td><span class="pill p-devin">Devin</span></td><td>Purpose-built: takes a ticket through to a reviewable change on its own.</td></tr>
+        <tr><td class="cat">Branch / commit / push execution</td><td><span class="pill p-devin">Devin</span></td><td>Runs the full lifecycle hands-off; Claude does it from the CLI with a human in the loop.</td></tr>
+        <tr><td class="cat">Framework / version migrations</td><td><span class="pill p-devin">Devin</span></td><td>Best for large, repetitive, mechanical changes across many files.</td></tr>
+        <tr><td class="cat">Parallel development</td><td><span class="pill p-devin">Devin</span> / <span class="pill p-claude">Claude</span></td><td>Devin runs independent tickets at once; Claude subagents split one task under a lead.</td></tr>
+        <tr><td class="cat">Shared team instructions / agent files</td><td><span class="pill p-claude">Claude</span></td><td>Version-controlled instruction files re-read every session; Copilot &amp; Devin have lighter equivalents.</td></tr>
+        <tr><td class="cat">Day-to-day enterprise delivery</td><td><span class="pill p-copilot">Copilot</span></td><td>Broadest IDE reach and native source-control flow make it the safest org default.</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ============ SECTION 2 ============ -->
+    <h2 class="sect" id="s2"><span class="sect-num">02 &nbsp;</span>Use Cases &amp; Token Efficiency</h2>
+    <hr class="sect-rule">
+
+    <p class="lead">Tokens are the units of work these tools consume &mdash; roughly, the amount of code and text a tool reads and writes to do a job. Two things drive token use: <strong>picking the tool suited to the task</strong> and <strong>how tightly the task is scoped</strong>. How much of the codebase a tool holds in view at once shapes both.</p>
+
+    <h3 class="sub">How much each tool holds in view at once <a class="back" href="#s2">&uarr; top</a></h3>
+    <div class="ctx">
+      <div class="card copilot">
+        <h4><i class="dot dc-copilot"></i>GitHub Copilot</h4>
+        <p class="win">Focused slice</p>
+        <p>Reads a small, relevant portion of the project by default and widens only when a larger task calls for it. Naturally lean on tokens.</p>
+      </div>
+      <div class="card claude">
+        <h4><i class="dot dc-claude"></i>Claude Code</h4>
+        <p class="win">Very large view</p>
+        <p>Can hold a very large amount of the codebase in view in one session &mdash; enough to reason across a whole project. Powerful, but the more it holds, the more tokens it uses.</p>
+      </div>
+      <div class="card devin">
+        <h4><i class="dot dc-devin"></i>Devin AI</h4>
+        <p class="win">Managed automatically</p>
+        <p>Handles context on its own behind the scenes. No window to manage &mdash; it pulls in what a task needs, and its internal steps stay out of day-to-day token use.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">Which tool conserves the most tokens, by use case <a class="back" href="#s2">&uarr; top</a></h3>
+    <table class="dec">
+      <colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+      <thead><tr><th>Use case</th><th>Most efficient</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td class="cat">Everyday coding &amp; repetitive work</td><td><span class="pill p-copilot">Copilot</span></td><td>Handles the highest-volume routine coding with the lightest token draw.</td></tr>
+        <tr><td class="cat">Fast trial-and-error loops</td><td><span class="pill p-copilot">Copilot</span></td><td>Works through many small steps without re-reading the whole project each time.</td></tr>
+        <tr><td class="cat">Generating routine tests</td><td><span class="pill p-copilot">Copilot</span></td><td>Produces predictable, pattern-based code with a light footprint.</td></tr>
+        <tr><td class="cat">Quick questions &amp; small edits</td><td><span class="pill p-copilot">Copilot</span></td><td>Small, self-contained requests that need little of the codebase loaded.</td></tr>
+        <tr><td class="cat">Understanding a whole codebase / large refactor</td><td><span class="pill p-claude">Claude</span></td><td>Takes in the project in one pass, avoiding repeated round-trips that re-read the same code.</td></tr>
+        <tr><td class="cat">Deep reasoning done in a few passes</td><td><span class="pill p-claude">Claude</span></td><td>Concentrates high-value thinking into a few large, efficient passes.</td></tr>
+        <tr><td class="cat">Documentation &amp; architecture write-ups</td><td><span class="pill p-claude">Claude</span></td><td>One focused pass covers the work; keep scope tight to hold token use down.</td></tr>
+        <tr><td class="cat">Long, hands-off tasks</td><td><span class="pill p-devin">Devin</span></td><td>Runs unattended and manages its own context, so internal steps don't add to your token use.</td></tr>
+        <tr><td class="cat">Open-ended, exploratory work</td><td><span class="pill p-devin">Devin</span></td><td>Absorbs unpredictable, sprawling work so token use stays contained.</td></tr>
+        <tr><td class="cat">Many tasks running in parallel</td><td><span class="pill p-devin">Devin</span> / <span class="pill p-claude">Claude</span></td><td>Devin runs independent tasks at once; Claude reuses shared context across branches.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="guard">
+      <h3>General token-saving best practices</h3>
+      <ul>
+        <li><strong>Match the tool to the job:</strong> use the lightest-touch tool that can do the work, and reserve heavyweight autonomous options for tasks that truly need them.</li>
+        <li><strong>Scope tightly:</strong> a wide view is a ceiling, not a target &mdash; point tools at the files that matter, since everything held in view adds to token use.</li>
+        <li><strong>Load context once, ask many times:</strong> keep related questions in one session instead of reloading the same code repeatedly.</li>
+        <li><strong>Write clear briefs up front:</strong> complete instructions cut the clarification cycles that quietly multiply token use.</li>
+        <li><strong>Offload long or repetitive work:</strong> let an autonomous agent run multi-step and bulk jobs rather than driving them interactively.</li>
+        <li><strong>Keep guidance stable:</strong> consistent project and team instructions let tools reuse prior understanding instead of reprocessing it each time.</li>
+      </ul>
+    </div>
+
+    <!-- ============ SECTION 3 ============ -->
+    <h2 class="sect" id="s3"><span class="sect-num">03 &nbsp;</span>Configuration &amp; Best Practices</h2>
+    <hr class="sect-rule">
+    <p class="lead">Configuration and workflow practices for using each tool well on a team. Product mechanisms (file names, flags, settings) change quickly &mdash; treat specifics as a starting point and confirm against current docs.</p>
+
+    <h3 class="sub">Cross-tool quick map <a class="back" href="#s3">&uarr; top</a></h3>
+    <table class="matrix">
+      <colgroup><col class="aspect"><col class="tool"><col class="tool"><col class="tool"></colgroup>
+      <thead><tr><th class="aspect">&nbsp;</th><th class="tool copilot">GitHub Copilot</th><th class="tool claude">Claude Code</th><th class="tool devin">Devin AI</th></tr></thead>
+      <tbody>
+        <tr><td class="aspect">Memory / instructions</td><td class="copilot">User settings + <code>.github/copilot-instructions.md</code> + path-scoped <code>*.instructions.md</code></td><td class="claude"><code>~/.claude/CLAUDE.md</code> (user) + <code>./CLAUDE.md</code> (project) + subdir <code>CLAUDE.md</code> (folder)</td><td class="devin">Knowledge (org &amp; repo) + Playbooks for recurring tasks</td></tr>
+        <tr><td class="aspect">Plan first</td><td class="copilot">Built-in Plan chat mode / custom <code>*.chatmode.md</code>; cloud agent posts plan on PR</td><td class="claude">Plan mode (Shift+Tab) before executing</td><td class="devin">Reviews its draft plan before running; confirm/edit it</td></tr>
+        <tr><td class="aspect">Scope context</td><td class="copilot"><code>#file</code>/<code>#selection</code>; narrow <code>@workspace</code>; content exclusion</td><td class="claude"><code>/clear</code>, <code>/compact</code>, name specific files, lean memory files</td><td class="devin">Tight tickets + Knowledge/Playbooks to avoid re-explaining</td></tr>
+        <tr><td class="aspect">Subagents</td><td class="copilot"><span class="na">No first-class subagents; custom agents / prompt files</span></td><td class="claude">Yes &mdash; <code>.claude/agents/*.md</code>, isolated context</td><td class="devin">Yes &mdash; &ldquo;managed Devins&rdquo; with a lead coordinator</td></tr>
+        <tr><td class="aspect">Parallel agents</td><td class="copilot">Assign multiple issues to the cloud agent</td><td class="claude">Parallel subagents; <code>isolation: worktree</code></td><td class="devin">Multiple sessions / managed Devins, each own VM</td></tr>
+        <tr><td class="aspect">MCP</td><td class="copilot"><code>.vscode/mcp.json</code> (workspace) or repo settings (cloud agent)</td><td class="claude">User / project (<code>.mcp.json</code>) / local scopes; per-subagent</td><td class="devin">Large MCP connector catalog + 20+ native integrations</td></tr>
+        <tr><td class="aspect">Secrets</td><td class="copilot"><code>${input:...}</code>; Agents secrets (<code>COPILOT_MCP_</code>); secret scanning</td><td class="claude">Env vars / <code>.env</code> (never in committed CLAUDE.md); permissions</td><td class="devin">Secrets / env-var manager in dashboard (never in prompt)</td></tr>
+      </tbody>
+    </table>
+
+    <!-- COPILOT BP -->
+    <h3 class="sub">GitHub Copilot &mdash; detailed practices <a class="back" href="#s3">&uarr; top</a></h3>
+    <div class="b-copilot">
+      <div class="toolhead copilot">GitHub Copilot &nbsp;<span class="tag">native to VS Code; leanest on everyday, high-frequency work</span></div>
+      <table class="bp"><colgroup><col class="cat"><col></colgroup><tbody>
+        <tr><td class="cat">Memory &mdash; user root</td><td>Set <strong>personal custom instructions</strong> in VS Code settings for individual style preferences. Highest priority; stays with the developer, not the repo.</td></tr>
+        <tr><td class="cat">Memory &mdash; project root</td><td>Commit <code>.github/copilot-instructions.md</code> for team-wide conventions (<code>AGENTS.md</code> also recognized). Keep it short and factual &mdash; only what's true for the whole repo.</td></tr>
+        <tr><td class="cat">Memory &mdash; folder / path</td><td>Add <code>.github/instructions/*.instructions.md</code> with an <code>applyTo</code> glob (e.g. <code>applyTo:"src/api/**"</code>). Prefer several narrow files over one giant file.</td></tr>
+        <tr><td class="cat">Plan mode</td><td>Use the built-in <strong>Plan</strong> chat mode (or a read-only custom <code>*.chatmode.md</code>) before agent mode edits. The cloud agent posts its plan on the PR for review first.</td></tr>
+        <tr><td class="cat">Scoping context</td><td>Reference precisely with <code>#file</code>/<code>#selection</code> rather than broad <code>@workspace</code>. Use <strong>prompt files</strong> (<code>*.prompt.md</code>) for repeatable scoped tasks, and <strong>content exclusion</strong> to keep sensitive/irrelevant files out.</td></tr>
+        <tr><td class="cat">Subagents</td><td><span class="na">No first-class subagent system.</span> Delegation is via the cloud coding agent and custom agents / chat modes; prompt files act as lightweight reusable specialists.</td></tr>
+        <tr><td class="cat">Parallel agents</td><td>Assign <strong>multiple issues</strong> to the cloud agent to run in parallel, each in its own isolated environment. In-editor agent mode is a single session.</td></tr>
+        <tr><td class="cat">MCP integrations</td><td>Configure servers in <code>.vscode/mcp.json</code> (workspace) or repo settings (cloud agent). Enable only what a task needs &mdash; each server's tools add to context.</td></tr>
+        <tr><td class="cat">Secrets</td><td>Reference as <code>${input:my_secret}</code> in <code>mcp.json</code> (prompted once, stored securely, never written to disk). For the cloud agent use dedicated <strong>Agents secrets</strong> (org/repo), prefix MCP secrets <code>COPILOT_MCP_</code>, and enable <strong>secret scanning</strong> to catch leaks before commit.</td></tr>
+        <tr><td class="cat">Other</td><td>Standardize workflows with prompt files &amp; custom chat modes; use <strong>Copilot code review</strong> with custom instructions; choose the right model per task; enforce policies and content exclusion centrally.</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- CLAUDE BP -->
+    <h3 class="sub">Claude Code &mdash; detailed practices <a class="back" href="#s3">&uarr; top</a></h3>
+    <div class="b-claude">
+      <div class="toolhead claude">Claude Code &nbsp;<span class="tag">used via VS Code extension + command line; strongest at wide-context reasoning</span></div>
+      <table class="bp"><colgroup><col class="cat"><col></colgroup><tbody>
+        <tr><td class="cat">Memory &mdash; user root</td><td>Put personal, cross-project defaults in <code>~/.claude/CLAUDE.md</code> (workflow, preferred commands, global conventions). Keep it short so it doesn't crowd project context.</td></tr>
+        <tr><td class="cat">Memory &mdash; project root</td><td>Commit <code>./CLAUDE.md</code> for team-shared architecture, conventions, and build/test commands. Write only what's true <em>every</em> session, keep it under ~150&ndash;200 lines, and <strong>point to detail rather than pasting it</strong>. Personal overrides go in <code>CLAUDE.local.md</code> (gitignored).</td></tr>
+        <tr><td class="cat">Memory &mdash; folder / subdir</td><td>A subdirectory <code>CLAUDE.md</code> (e.g. <code>frontend/CLAUDE.md</code>) holds module-specific rules and loads lazily &mdash; only when Claude reads a file there &mdash; so a monorepo doesn't bloat context. Compose with <code>@path</code> imports.</td></tr>
+        <tr><td class="cat">Plan mode</td><td>Enter <strong>plan mode</strong> (Shift+Tab) for large or ambiguous tasks &mdash; Claude investigates read-only and proposes a plan. Invest in the plan so implementation is &ldquo;one-shot,&rdquo; and review it before approving.</td></tr>
+        <tr><td class="cat">Scoping context</td><td>Run <code>/clear</code> between unrelated tasks and <code>/compact</code> for long sessions. Name specific files, keep memory files lean, offload research to subagents to keep the main context small, and route simpler work to a lighter model.</td></tr>
+        <tr><td class="cat">Subagents</td><td>Define specialists in <code>.claude/agents/*.md</code> (frontmatter: <code>name</code>, <code>description</code>, <code>tools</code>, <code>model</code>, <code>mcpServers</code>, <code>isolation</code>). Each runs in its <strong>own isolated context</strong> and returns only a summary &mdash; ideal for research, verification, and review.</td></tr>
+        <tr><td class="cat">Parallel agents</td><td>Launch multiple subagents at once; add <code>isolation: worktree</code> so each works in its own git worktree without collisions. They share the prompt cache, so fanning out is efficient. Worktrees/subdirs of one repo share a single auto-memory directory.</td></tr>
+        <tr><td class="cat">MCP integrations</td><td>Add servers at <strong>user</strong>, <strong>project</strong>, or <strong>local</strong> scope; commit project servers in <code>.mcp.json</code>. Grant subagents only the <code>mcpServers</code> they need; keep the active set minimal.</td></tr>
+        <tr><td class="cat">Secrets</td><td><strong>Never</strong> put secrets in <code>CLAUDE.md</code> (it's committed). Use env vars / <code>.env</code> (gitignored), pass credentials to MCP servers via env, and lock down execution with <code>/permissions</code> allowlists, <strong>hooks</strong>, and <code>settings.json</code> allow/deny rules.</td></tr>
+        <tr><td class="cat">Other</td><td>Add reusable <strong>slash commands</strong> in <code>.claude/commands/</code>; use <strong>hooks</strong> for deterministic gates (format, tests); run <code>/review</code> for structured review; and route models deliberately &mdash; lighter for routine work, strongest only when needed.</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- DEVIN BP -->
+    <h3 class="sub">Devin AI &mdash; detailed practices <a class="back" href="#s3">&uarr; top</a></h3>
+    <div class="b-devin">
+      <div class="toolhead devin">Devin AI &nbsp;<span class="tag">runs on its own platform; best for long, hands-off, and parallel work</span></div>
+      <table class="bp"><colgroup><col class="cat"><col></colgroup><tbody>
+        <tr><td class="cat">Memory &mdash; org / user root</td><td>Use <strong>Knowledge</strong> for general facts Devin should reference in every session &mdash; style guides, architecture, org conventions. Add once so Devin stops re-deriving context.</td></tr>
+        <tr><td class="cat">Memory &mdash; project / repo</td><td>Scope Knowledge to the repo, and invest in <strong>repo setup</strong> once: dependencies, test/lint/build commands, env, VPN, DB. Machine <strong>snapshots</strong> let every session start ready.</td></tr>
+        <tr><td class="cat">Memory &mdash; task level</td><td>Create <strong>Playbooks</strong> for recurring tasks &mdash; a Playbook is like a custom system prompt for a repeated job. Reach for one whenever you repeat the same instructions.</td></tr>
+        <tr><td class="cat">Plan mode</td><td>Devin drafts a <strong>plan</strong> before working. Review and edit it &mdash; especially for ambiguous work &mdash; before it proceeds. Clear specs up front reduce mid-task re-planning.</td></tr>
+        <tr><td class="cat">Scoping context</td><td>Write <strong>tightly-scoped tickets</strong> with clear acceptance criteria and relevant file paths. Lean on Knowledge/Playbooks so Devin doesn't re-learn context each run.</td></tr>
+        <tr><td class="cat">Subagents</td><td>Use <strong>managed Devins</strong>: a lead session delegates sub-tasks to child Devins, each a full Devin with its own VM. The lead scopes, monitors, resolves conflicts, and compiles results.</td></tr>
+        <tr><td class="cat">Parallel agents</td><td>Run multiple sessions or managed Devins <strong>in parallel</strong>, each in an isolated VM &mdash; ideal for fanning out across independent tickets. Keep each task self-contained.</td></tr>
+        <tr><td class="cat">MCP integrations</td><td>Connect via the large <strong>MCP connector catalog</strong> plus 20+ native integrations (trackers, chat, source control, cloud &amp; data services). Enable only what a workflow needs.</td></tr>
+        <tr><td class="cat">Secrets</td><td>Store credentials in Devin's <strong>Secrets / environment-variable manager</strong> &mdash; <strong>never paste keys into the prompt</strong>. Secrets are scoped (personal/org) and auto-retrieved later; consider <code>direnv</code> in repo setup.</td></tr>
+        <tr><td class="cat">Other</td><td>Front-load <strong>environment setup</strong> (snapshots, test commands) so sessions start productive; always <strong>review Devin's PRs</strong> before merge; write clear tickets to minimize clarification loops; manage from the VS Code extension while work runs on the platform.</td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+
+  <footer>Enterprise AI Engineering Playbook &mdash; 2026 edition. Guidance for tool selection, token discipline, and configuration under a VS Code + command-line setup. Product capabilities and mechanisms evolve quickly; reconfirm specifics against current official documentation before standardizing across teams.</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Coding Tools — Best Practices Reference</title>
+<style>
+  :root{
+    --copilot:#2563eb;
+    --claude:#c2551c;
+    --devin:#7c3aed;
+    --ink:#1a1a1a;
+    --muted:#5c5c5c;
+    --line:#e2e2e2;
+    --bg:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);margin:0;background:#f3f4f6;line-height:1.45;
+  }
+  .page{
+    max-width:960px;margin:24px auto;background:var(--bg);
+    padding:30px 40px 28px;box-shadow:0 2px 14px rgba(0,0,0,.08);border-radius:6px;
+  }
+  header{border-bottom:3px solid var(--ink);padding-bottom:11px;margin-bottom:14px;}
+  h1{font-size:23px;margin:0;letter-spacing:-.3px;}
+  .sub{font-size:11.5px;color:var(--muted);margin-top:4px;}
+  .intro{font-size:11.5px;color:#333;margin:2px 0 6px;}
+  .legend{display:flex;gap:16px;font-size:11px;font-weight:600;margin-top:8px;}
+  .legend span{display:flex;align-items:center;gap:5px;}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .d-copilot{background:var(--copilot);}
+  .d-claude{background:var(--claude);}
+  .d-devin{background:var(--devin);}
+
+  h2.sect{font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:26px 0 8px;border-bottom:1px solid var(--line);padding-bottom:5px;}
+
+  /* cross-tool map */
+  table.map{width:100%;border-collapse:collapse;table-layout:fixed;margin-top:4px;}
+  table.map col.c1{width:19%;}
+  table.map th{font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;color:#fff;text-align:left;padding:7px 9px;}
+  table.map th.k{background:#3f3f46;}
+  table.map th.copilot{background:var(--copilot);}
+  table.map th.claude{background:var(--claude);}
+  table.map th.devin{background:var(--devin);}
+  table.map td{font-size:10px;vertical-align:top;padding:7px 9px;border-bottom:1px solid var(--line);line-height:1.35;}
+  table.map td.k{font-weight:700;color:#333;background:#fafafa;font-size:9.7px;}
+  table.map tr:nth-child(even) td{background:#fbfbfb;}
+  table.map tr:nth-child(even) td.k{background:#f4f4f5;}
+
+  /* tool block */
+  .toolhead{color:#fff;padding:9px 14px;border-radius:5px 5px 0 0;font-size:16px;font-weight:800;letter-spacing:-.2px;margin-top:8px;}
+  .toolhead .tag{font-size:10.5px;font-weight:600;opacity:.9;}
+  .toolhead.copilot{background:var(--copilot);}
+  .toolhead.claude{background:var(--claude);}
+  .toolhead.devin{background:var(--devin);}
+  table.bp{width:100%;border-collapse:collapse;table-layout:fixed;margin-bottom:6px;}
+  table.bp col.cat{width:22%;}
+  table.bp td{font-size:11px;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line);line-height:1.45;}
+  table.bp td.cat{font-weight:700;color:#1a1a1a;font-size:10.7px;background:#fafafa;}
+  .copilot table.bp td.cat{border-left:3px solid var(--copilot);}
+  .claude table.bp td.cat{border-left:3px solid var(--claude);}
+  .devin table.bp td.cat{border-left:3px solid var(--devin);}
+  table.bp ul{margin:0;padding-left:15px;}
+  table.bp li{margin:2px 0;}
+  code{background:#f0f0f2;border:1px solid #e4e4e7;border-radius:3px;padding:0 4px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;color:#b02a00;}
+  .claude code{color:#b02a00;}
+  .copilot code{color:#1d4ed8;}
+  .devin code{color:#6d28d9;}
+  .na{color:var(--muted);font-style:italic;}
+  footer{margin-top:22px;font-size:9.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;}
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;max-width:100%;padding:14px 18px;border-radius:0;}
+    .toolhead{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    table.map th,.toolhead{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    tr,td,.toolhead{break-inside:avoid;}
+    @page{size:A4 portrait;margin:12mm;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>AI Coding Tools &mdash; Best Practices Reference</h1>
+    <div class="sub">GitHub Copilot &middot; Claude &middot; Devin.AI &nbsp;|&nbsp; Practitioner guidance for memory, context, agents, MCP &amp; secrets &middot; July 2026</div>
+    <p class="intro">Configuration and workflow practices for using each tool well on a team. Assumes a VS Code + command-line setup. Mechanisms evolve quickly &mdash; treat the specifics as a starting point and confirm against current product docs.</p>
+    <div class="legend">
+      <span><i class="dot d-copilot"></i>GitHub Copilot</span>
+      <span><i class="dot d-claude"></i>Claude</span>
+      <span><i class="dot d-devin"></i>Devin.AI</span>
+    </div>
+  </header>
+
+  <h2 class="sect">Cross-tool quick map</h2>
+  <table class="map">
+    <colgroup><col class="c1"><col><col><col></colgroup>
+    <thead>
+      <tr>
+        <th class="k">Practice area</th>
+        <th class="copilot">GitHub Copilot</th>
+        <th class="claude">Claude</th>
+        <th class="devin">Devin.AI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="k">Memory / instructions</td>
+        <td>User settings + <code>.github/copilot-instructions.md</code> + path-scoped <code>*.instructions.md</code></td>
+        <td><code>~/.claude/CLAUDE.md</code> (user) + <code>./CLAUDE.md</code> (project) + subdir <code>CLAUDE.md</code> (folder)</td>
+        <td>Knowledge (org &amp; repo) + Playbooks for recurring tasks</td>
+      </tr>
+      <tr>
+        <td class="k">Plan first</td>
+        <td>Built-in Plan chat mode / custom <code>*.chatmode.md</code>; cloud agent posts plan on PR</td>
+        <td>Plan mode (Shift+Tab) before executing</td>
+        <td>Reviews its draft plan before running; confirm/edit it</td>
+      </tr>
+      <tr>
+        <td class="k">Scope context</td>
+        <td><code>#file</code> / <code>#selection</code>; narrow <code>@workspace</code>; content exclusion</td>
+        <td><code>/clear</code>, <code>/compact</code>, name specific files, lean memory files</td>
+        <td>Tight tickets + Knowledge/Playbooks to avoid re-explaining</td>
+      </tr>
+      <tr>
+        <td class="k">Subagents</td>
+        <td class="na">No first-class subagents; custom agents / prompt files</td>
+        <td>Yes &mdash; <code>.claude/agents/*.md</code>, isolated context</td>
+        <td>Yes &mdash; "managed Devins" with a lead coordinator</td>
+      </tr>
+      <tr>
+        <td class="k">Parallel agents</td>
+        <td>Assign multiple issues to the cloud agent</td>
+        <td>Parallel subagents; <code>isolation: worktree</code></td>
+        <td>Multiple sessions / managed Devins, each own VM</td>
+      </tr>
+      <tr>
+        <td class="k">MCP</td>
+        <td><code>.vscode/mcp.json</code> (workspace) or repo settings (cloud agent)</td>
+        <td>User / project (<code>.mcp.json</code>) / local scopes; per-subagent</td>
+        <td>Large MCP connector catalog + 20+ native integrations</td>
+      </tr>
+      <tr>
+        <td class="k">Secrets</td>
+        <td><code>${input:...}</code> in mcp.json; Agents secrets (<code>COPILOT_MCP_</code>); secret scanning</td>
+        <td>Env vars / <code>.env</code> (never in committed CLAUDE.md); permissions</td>
+        <td>Secrets / env-var manager in dashboard (never in prompt)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ================= COPILOT ================= -->
+  <h2 class="sect">GitHub Copilot &mdash; best practices</h2>
+  <div class="copilot">
+    <div class="toolhead copilot">GitHub Copilot &nbsp;<span class="tag">native to VS Code; leanest on the everyday, high-frequency work</span></div>
+    <table class="bp">
+      <colgroup><col class="cat"><col></colgroup>
+      <tbody>
+        <tr><td class="cat">Memory &mdash; user root</td><td>Set <strong>personal custom instructions</strong> in VS Code settings for individual style preferences (naming, comment style, preferred libraries). These take highest priority and stay with the developer, not the repo.</td></tr>
+        <tr><td class="cat">Memory &mdash; project root</td><td>Commit <code>.github/copilot-instructions.md</code> at the repo root for team-wide conventions (architecture, testing, do/don't). <code>AGENTS.md</code> is also recognized. Keep it short and factual &mdash; only what's true for the whole repo.</td></tr>
+        <tr><td class="cat">Memory &mdash; folder / path</td><td>Add path-specific files under <code>.github/instructions/*.instructions.md</code> with an <code>applyTo</code> glob (e.g. <code>applyTo: "src/api/**"</code>). Prefer several narrow files over one giant instruction file so rules only load where relevant.</td></tr>
+        <tr><td class="cat">Plan mode</td><td>Use the built-in <strong>Plan</strong> chat mode (or a custom read-only <code>*.chatmode.md</code>) to produce an implementation plan before letting agent mode edit. For background work, the cloud coding agent posts its plan on the pull request for review before it proceeds.</td></tr>
+        <tr><td class="cat">Scoping context (token saving)</td><td>Reference context precisely with <code>#file</code> and <code>#selection</code> rather than broad <code>@workspace</code>, which pulls in far more. Use <strong>prompt files</strong> (<code>*.prompt.md</code>) for repeatable, pre-scoped tasks. Use organization <strong>content exclusion</strong> to keep sensitive or irrelevant files out of context entirely.</td></tr>
+        <tr><td class="cat">Subagents</td><td><span class="na">No first-class subagent system like Claude.</span> Delegation is handled by the cloud coding agent and by <strong>custom agents / custom chat modes</strong>; use prompt files as lightweight, reusable "specialist" configurations.</td></tr>
+        <tr><td class="cat">Parallel agents</td><td>Assign <strong>multiple GitHub issues</strong> to the cloud coding agent to run in parallel, each in its own isolated Actions environment. In-editor agent mode is a single interactive session &mdash; parallelism comes from the cloud agent, not the IDE.</td></tr>
+        <tr><td class="cat">MCP integrations</td><td>Configure MCP servers for agent mode in <code>.vscode/mcp.json</code> (workspace) or, for the cloud agent, in repository settings. Enable only the servers a task needs &mdash; each server's tools add to context.</td></tr>
+        <tr><td class="cat">Secrets management</td><td>Reference secrets as <code>${input:my_secret}</code> in <code>mcp.json</code>: Copilot prompts once, stores securely, and never writes the value to disk. For the cloud agent use dedicated <strong>Agents secrets/variables</strong> (org- or repo-level); prefix MCP secrets with <code>COPILOT_MCP_</code>. Enable <strong>secret scanning</strong> via the GitHub MCP server to catch leaked credentials before commit.</td></tr>
+        <tr><td class="cat">Other tool-specific</td><td>Lean on <strong>prompt files</strong> and <strong>custom chat modes</strong> to standardize team workflows; use <strong>Copilot code review</strong> with custom instructions for consistent PR feedback; pick the right model per task from the model picker; enforce org-level policies and content exclusion centrally.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= CLAUDE ================= -->
+  <h2 class="sect">Claude &mdash; best practices</h2>
+  <div class="claude">
+    <div class="toolhead claude">Claude &nbsp;<span class="tag">used via VS Code extension + command line; strongest at wide-context reasoning</span></div>
+    <table class="bp">
+      <colgroup><col class="cat"><col></colgroup>
+      <tbody>
+        <tr><td class="cat">Memory &mdash; user root</td><td>Put personal, cross-project defaults in <code>~/.claude/CLAUDE.md</code> (your workflow, preferred commands, global conventions). Applies to every project; keep it short so it doesn't crowd out project context.</td></tr>
+        <tr><td class="cat">Memory &mdash; project root</td><td>Commit <code>./CLAUDE.md</code> at the repo root for team-shared architecture, conventions, and build/test commands. Discipline: write only what's true <em>every</em> session, keep it under ~150&ndash;200 lines, and <strong>point to detail rather than pasting it</strong>. Personal, uncommitted overrides go in <code>CLAUDE.local.md</code> (gitignored).</td></tr>
+        <tr><td class="cat">Memory &mdash; folder / subdir</td><td>Place a <code>CLAUDE.md</code> in a subdirectory (e.g. <code>frontend/CLAUDE.md</code>) for module-specific rules. It loads lazily &mdash; only when Claude reads a file in that folder &mdash; so a large monorepo doesn't bloat context. Compose files with <code>@path</code> imports.</td></tr>
+        <tr><td class="cat">Plan mode</td><td>Enter <strong>plan mode</strong> (Shift+Tab to cycle) for large or ambiguous tasks &mdash; Claude investigates read-only and proposes a plan without editing. Invest effort in the plan so the implementation can be "one-shot," and review it before approving execution.</td></tr>
+        <tr><td class="cat">Scoping context (token saving)</td><td>Run <code>/clear</code> between unrelated tasks and <code>/compact</code> to summarize long sessions. Name specific files instead of letting Claude read broadly. Keep memory files lean. Offload research to subagents so the main session's context stays small, and route simpler work to a lighter model.</td></tr>
+        <tr><td class="cat">Subagents</td><td>Define specialists in <code>.claude/agents/*.md</code> (YAML frontmatter: <code>name</code>, <code>description</code>, <code>tools</code>, <code>model</code>, <code>mcpServers</code>, <code>isolation</code>). Each runs in its <strong>own isolated context</strong> and returns only a summary &mdash; ideal for research, verification, and code review without polluting the main window.</td></tr>
+        <tr><td class="cat">Parallel agents</td><td>Launch multiple subagents at once; add <code>isolation: worktree</code> so each works in its own git worktree without collisions. Parallel agents share the prompt cache, so fanning out (tests, docs, refactor, audit at once) is efficient. Note: worktrees/subdirs of one repo share a single auto-memory directory.</td></tr>
+        <tr><td class="cat">MCP integrations</td><td>Add servers at <strong>user</strong>, <strong>project</strong>, or <strong>local</strong> scope; commit project servers in <code>.mcp.json</code> so the team shares them. Grant individual subagents only the <code>mcpServers</code> they need, and keep the active set minimal to limit tool-definition tokens.</td></tr>
+        <tr><td class="cat">Secrets management</td><td><strong>Never</strong> put secrets in <code>CLAUDE.md</code> &mdash; it's committed. Use environment variables / <code>.env</code> (gitignored) and pass credentials to MCP servers via env, not prompts. Lock down what Claude can run with <code>/permissions</code> allowlists and <strong>hooks</strong>, and manage allow/deny rules in <code>settings.json</code>.</td></tr>
+        <tr><td class="cat">Other tool-specific</td><td>Add reusable <strong>slash commands</strong> in <code>.claude/commands/</code>; use <strong>hooks</strong> for deterministic gates (auto-format, run tests) so the model doesn't have to; run <code>/review</code> for structured code review; and route models deliberately &mdash; a lighter model for routine work, the strongest only when the task demands it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= DEVIN ================= -->
+  <h2 class="sect">Devin.AI &mdash; best practices</h2>
+  <div class="devin">
+    <div class="toolhead devin">Devin.AI &nbsp;<span class="tag">runs on its own platform; best for long, hands-off, and parallel work</span></div>
+    <table class="bp">
+      <colgroup><col class="cat"><col></colgroup>
+      <tbody>
+        <tr><td class="cat">Memory &mdash; org / user root</td><td>Use <strong>Knowledge</strong> for general facts Devin should reference in every session &mdash; style guides, architecture, org conventions. Add it once so Devin stops asking or re-deriving the same context.</td></tr>
+        <tr><td class="cat">Memory &mdash; project / repo</td><td>Scope Knowledge to the relevant repo, and invest in <strong>repo setup</strong> once: install dependencies, define test/lint/build commands, env, VPN, and DB. Machine <strong>snapshots</strong> let every future session start ready to go.</td></tr>
+        <tr><td class="cat">Memory &mdash; task / "folder" level</td><td>Create <strong>Playbooks</strong> for recurring tasks &mdash; a Playbook is like a custom system prompt for a repeated job (e.g. "add an endpoint," "cut a release"). Reach for one whenever you notice yourself repeating the same instructions.</td></tr>
+        <tr><td class="cat">Plan mode</td><td>Devin drafts a <strong>plan</strong> for each task before it starts working. Review and edit that plan &mdash; especially for ambiguous work &mdash; before letting it proceed. Clear, complete specs up front dramatically reduce mid-task re-planning.</td></tr>
+        <tr><td class="cat">Scoping context (token saving)</td><td>Write <strong>tightly-scoped tickets</strong> with clear acceptance criteria and the relevant file paths. Lean on Knowledge and Playbooks so Devin doesn't re-read or re-learn context each run. Smaller, well-defined tasks finish with less work.</td></tr>
+        <tr><td class="cat">Subagents</td><td>Use <strong>managed Devins</strong>: a lead session delegates sub-tasks to child Devins, each a full Devin with its own VM. The lead scopes the work, monitors progress, resolves conflicts, and compiles the results.</td></tr>
+        <tr><td class="cat">Parallel agents</td><td>Run multiple sessions or managed Devins <strong>in parallel</strong>, each in an isolated VM &mdash; ideal for fanning out across independent tickets. Keep each task self-contained so parallel runs don't conflict.</td></tr>
+        <tr><td class="cat">MCP integrations</td><td>Connect Devin to external tools through its large <strong>MCP connector catalog</strong> plus 20+ native integrations (issue trackers, chat, source control, cloud &amp; data services). Enable only what a workflow needs.</td></tr>
+        <tr><td class="cat">Secrets management</td><td>Store credentials in Devin's <strong>Secrets / environment-variable manager</strong> in the dashboard &mdash; <strong>never paste API keys into the chat prompt</strong>. Secrets are scoped (personal or org) and auto-retrieved in future sessions; consider <code>direnv</code> in repo setup for env vars.</td></tr>
+        <tr><td class="cat">Other tool-specific</td><td>Front-load <strong>environment setup</strong> (snapshots, test commands) so sessions start productive; always <strong>review Devin's pull requests</strong> before merge; write clear tickets to minimize clarification loops; and manage/monitor from the VS Code extension while the work runs on Devin's platform.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>Practitioner reference for tool configuration and workflow discipline. Product mechanisms (file names, flags, settings) change frequently &mdash; reconfirm against current official documentation before standardizing across teams. Sources: Claude Code, GitHub Copilot, and Devin documentation (2026).</footer>
+</div>
+</body>
+</html>

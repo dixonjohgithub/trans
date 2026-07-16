@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Coding Tools — Use-Case &amp; Token-Saving Guide</title>
+<style>
+  :root{
+    --copilot:#2563eb;
+    --claude:#c2551c;
+    --devin:#7c3aed;
+    --ink:#1a1a1a;
+    --muted:#5c5c5c;
+    --line:#e2e2e2;
+    --bg:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);margin:0;background:#f3f4f6;
+  }
+  .page{
+    max-width:1080px;margin:24px auto;background:var(--bg);
+    padding:26px 32px 22px;box-shadow:0 2px 14px rgba(0,0,0,.08);border-radius:6px;
+  }
+  header{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    border-bottom:3px solid var(--ink);padding-bottom:9px;margin-bottom:8px;
+  }
+  h1{font-size:21px;margin:0;letter-spacing:-.3px;}
+  .sub{font-size:11px;color:var(--muted);margin-top:3px;}
+  .legend{display:flex;gap:14px;font-size:11px;font-weight:600;}
+  .legend span{display:flex;align-items:center;gap:5px;}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .d-copilot{background:var(--copilot);}
+  .d-claude{background:var(--claude);}
+  .d-devin{background:var(--devin);}
+  .intro{font-size:11px;color:#333;line-height:1.5;margin:4px 0 2px;}
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:15px 0 7px;}
+  table{width:100%;border-collapse:collapse;margin-top:4px;}
+  th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:5px 8px;border-bottom:1.5px solid var(--line);}
+  td{padding:6px 8px;font-size:10.8px;vertical-align:top;border-bottom:1px solid #f0f0f0;line-height:1.34;}
+  tr:nth-child(even) td{background:#fafafa;}
+  .cat{font-weight:600;width:20%;}
+  .pick{width:12%;font-weight:700;white-space:nowrap;}
+  .why{width:34%;color:#333;}
+  .tip{width:34%;color:#333;}
+  .pill{display:inline-block;padding:1px 7px;border-radius:10px;color:#fff;font-size:9px;font-weight:700;}
+  .p-copilot{background:var(--copilot);}
+  .p-claude{background:var(--claude);}
+  .p-devin{background:var(--devin);}
+  .guard{margin-top:13px;border:1px solid var(--line);border-radius:6px;padding:10px 13px;background:#fafafa;}
+  .guard h2{margin:0 0 5px;}
+  .guard ul{margin:0;padding-left:16px;}
+  .guard li{font-size:10.6px;color:#333;line-height:1.55;}
+  footer{margin-top:11px;font-size:9.3px;color:var(--muted);border-top:1px solid var(--line);padding-top:6px;}
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;max-width:100%;padding:12px 16px;border-radius:0;}
+    @page{size:A4 landscape;margin:9mm;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <h1>AI Coding Tools &mdash; Use Cases &amp; Token Saving</h1>
+      <div class="sub">GitHub Copilot &middot; Claude &middot; Devin.AI &nbsp;|&nbsp; The right tool per job, and how to keep token use low &middot; July 2026</div>
+    </div>
+    <div class="legend">
+      <span><i class="dot d-copilot"></i>Copilot</span>
+      <span><i class="dot d-claude"></i>Claude</span>
+      <span><i class="dot d-devin"></i>Devin</span>
+    </div>
+  </header>
+
+  <p class="intro">
+    Tokens are the units of work these tools consume &mdash; roughly, the amount of code and text a tool reads and writes to do a job. Two things drive token use: <strong>picking the tool suited to the task</strong>, and <strong>how tightly the task is scoped</strong>. In short: Copilot is leanest for frequent, close-to-the-code work; Claude is strongest when a job needs a wide view of the codebase; Devin is best for long or repetitive work it can run on its own. The table below pairs each use case with the better fit and a practice for keeping token use down.
+  </p>
+
+  <h2>Use case &rarr; better tool &rarr; token-saving practice</h2>
+  <table>
+    <thead>
+      <tr><th class="cat">Use case</th><th class="pick">Better tool</th><th class="why">Why it fits</th><th class="tip">Token-saving practice</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="cat">Everyday coding &amp; repetitive edits</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Works right beside the developer on small, frequent changes with a naturally light footprint.</td><td class="tip">Keep small edits here &mdash; don't open a wide-context session for a one-line change.</td></tr>
+      <tr><td class="cat">Fast trial-and-error loops</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Iterates through many small steps locally without re-reading the whole project each time.</td><td class="tip">Let it iterate in one session instead of re-describing the problem to a fresh start each round.</td></tr>
+      <tr><td class="cat">Generating routine tests</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Produces predictable, pattern-based code cheaply.</td><td class="tip">Point it at one module at a time and reuse existing test patterns rather than the whole suite.</td></tr>
+      <tr><td class="cat">Quick questions &amp; small fixes</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Small, self-contained requests that need little of the codebase.</td><td class="tip">Ask narrowly &mdash; attach only the file in question, not the whole repository.</td></tr>
+      <tr><td class="cat">Scaffolding a new service or component</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Generates standard starter structure from patterns it already knows.</td><td class="tip">Lean on known templates instead of describing every detail from scratch.</td></tr>
+      <tr><td class="cat">Build / test-failure triage</td><td class="pick"><span class="pill p-copilot">Copilot</span></td><td class="why">Quick, local diagnosis close to where the failure appears.</td><td class="tip">Share the failing log and the relevant file &mdash; not the entire pipeline or project.</td></tr>
+      <tr><td class="cat">Understanding an unfamiliar codebase</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Holds a wide view, so it can explain how the whole system fits together.</td><td class="tip">Load the codebase once, then ask several questions in the same session rather than reloading per question.</td></tr>
+      <tr><td class="cat">Large refactor across many files</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Reasons across the full codebase and keeps changes consistent.</td><td class="tip">Give it the context once and let it work across files in a single pass, not file-by-file prompts.</td></tr>
+      <tr><td class="cat">Debugging a hard, cross-cutting bug</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Traces subtle issues that span multiple areas of the code.</td><td class="tip">Provide the error and the specific suspect areas rather than dumping the entire project.</td></tr>
+      <tr><td class="cat">Code / pull-request review (depth)</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Reasons carefully about correctness, risk, and design in a change.</td><td class="tip">Review the diff and its immediate surroundings, not the whole repository.</td></tr>
+      <tr><td class="cat">Security review</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Careful reasoning over code to surface vulnerabilities.</td><td class="tip">Scope to the changed or sensitive areas instead of a full-repo sweep every time.</td></tr>
+      <tr><td class="cat">Documentation &amp; architecture write-ups</td><td class="pick"><span class="pill p-claude">Claude</span></td><td class="why">Produces clear, well-structured explanations in one focused pass.</td><td class="tip">Draft from code already in context; keep scope tight and avoid re-pasting material.</td></tr>
+      <tr><td class="cat">Long, hands-off tasks</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">Runs unattended and manages its own context end to end.</td><td class="tip">Hand off a well-scoped brief up front so it doesn't burn effort re-clarifying the goal.</td></tr>
+      <tr><td class="cat">Ticket &rarr; finished change (from a tracker)</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">Takes a ticket and carries it through to a reviewable result on its own.</td><td class="tip">Write clear, complete tickets so it needs fewer back-and-forth clarification cycles.</td></tr>
+      <tr><td class="cat">Framework / version migrations</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">Best for large, repetitive, mechanical changes across many files.</td><td class="tip">Batch the whole migration into one autonomous run instead of prompting each file.</td></tr>
+      <tr><td class="cat">Bulk dependency upgrades</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">Handles broad, routine maintenance without supervision.</td><td class="tip">Group upgrades into a single run rather than several interactive sessions.</td></tr>
+      <tr><td class="cat">Open-ended, exploratory work</td><td class="pick"><span class="pill p-devin">Devin</span></td><td class="why">Absorbs unpredictable, sprawling work in a self-contained session.</td><td class="tip">Set clear boundaries and goals so it doesn't wander across the whole codebase.</td></tr>
+      <tr><td class="cat">Many tasks running in parallel</td><td class="pick"><span class="pill p-devin">Devin</span> / <span class="pill p-claude">Claude</span></td><td class="why">Devin runs independent tasks at once; Claude reuses shared context across branches.</td><td class="tip">Split work into self-contained pieces, or keep related work in a shared session to avoid reloading context.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="guard">
+    <h2>General token-saving best practices</h2>
+    <ul>
+      <li><strong>Match the tool to the job:</strong> use the lightest-touch tool that can do the work, and reserve the heavyweight autonomous options for tasks that truly need them.</li>
+      <li><strong>Scope tightly:</strong> a wide view is a ceiling, not a target &mdash; point tools at the files that matter, since everything held in view adds to token use.</li>
+      <li><strong>Load context once, ask many times:</strong> keep related questions in one session instead of reloading the same code repeatedly.</li>
+      <li><strong>Write clear briefs up front:</strong> complete instructions cut the clarification cycles that quietly multiply token use.</li>
+      <li><strong>Offload long or repetitive work:</strong> let an autonomous agent run multi-step and bulk jobs rather than driving them interactively.</li>
+      <li><strong>Keep guidance stable:</strong> consistent project and team instructions let tools reuse prior understanding instead of reprocessing it each time.</li>
+    </ul>
+  </div>
+
+  <footer>High-level guidance for tool selection and token discipline. Capabilities evolve quickly &mdash; reconfirm current details before standardizing across teams.</footer>
+</div>
+</body>
+</html>

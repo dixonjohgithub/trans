@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Coding Tools — Key Observations</title>
+<style>
+  :root{
+    --copilot:#2563eb;
+    --claude:#c2551c;
+    --devin:#7c3aed;
+    --ink:#1a1a1a;
+    --muted:#5c5c5c;
+    --line:#e2e2e2;
+    --bg:#ffffff;
+    --ok:#15803d;
+    --off:#9ca3af;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);margin:0;background:#f3f4f6;
+  }
+  .page{
+    max-width:1120px;margin:24px auto;background:var(--bg);
+    padding:26px 32px 22px;box-shadow:0 2px 14px rgba(0,0,0,.08);border-radius:6px;
+  }
+  header{border-bottom:3px solid var(--ink);padding-bottom:9px;margin-bottom:10px;}
+  h1{font-size:21px;margin:0;letter-spacing:-.3px;}
+  .sub{font-size:11px;color:var(--muted);margin-top:3px;}
+  .note{font-size:10.5px;color:#333;background:#fdf6ec;border:1px solid #f0e0c8;border-radius:5px;padding:7px 10px;margin:9px 0 2px;line-height:1.45;}
+  table{width:100%;border-collapse:collapse;table-layout:fixed;}
+  col.aspect{width:14%;}
+  col.tool{width:28.66%;}
+  th.aspect,td.aspect{
+    font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;
+    color:var(--muted);text-align:left;vertical-align:top;padding:9px 8px;
+    border-bottom:1px solid var(--line);background:#fafafa;
+  }
+  th.tool{color:#fff;font-size:14px;font-weight:800;text-align:left;padding:9px 12px;letter-spacing:-.2px;}
+  th.copilot{background:var(--copilot);}
+  th.claude{background:var(--claude);}
+  th.devin{background:var(--devin);}
+  td{font-size:10.6px;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line);line-height:1.4;color:#2a2a2a;}
+  td.copilot{border-left:3px solid var(--copilot);background:#f7f9ff;}
+  td.claude{border-left:3px solid var(--claude);background:#fff8f4;}
+  td.devin{border-left:3px solid var(--devin);background:#faf7ff;}
+  .surf{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;}
+  .badge{display:inline-flex;align-items:center;gap:3px;font-size:8.8px;font-weight:700;padding:2px 6px;border-radius:9px;white-space:nowrap;letter-spacing:.1px;}
+  .badge.yes{background:#e6f4ea;color:var(--ok);border:1px solid #bfe3ca;}
+  .badge.off{background:#f1f1f2;color:var(--off);border:1px solid #e0e0e2;text-decoration:line-through;}
+  tr.summary td{font-weight:600;font-size:11px;color:#1a1a1a;background:#f2f2f2;border-left-width:3px;border-left-style:solid;}
+  tr.summary td.copilot{border-left-color:var(--copilot);}
+  tr.summary td.claude{border-left-color:var(--claude);}
+  tr.summary td.devin{border-left-color:var(--devin);}
+  tr.summary td.aspect{background:#e9e9e9;color:#1a1a1a;}
+  footer{margin-top:12px;font-size:9.3px;color:var(--muted);border-top:1px solid var(--line);padding-top:6px;}
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;max-width:100%;padding:12px 16px;border-radius:0;}
+    @page{size:A4 landscape;margin:8mm;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>AI Coding Tools &mdash; Key Observations</h1>
+    <div class="sub">GitHub Copilot &middot; Claude &middot; Devin.AI &nbsp;|&nbsp; Executive comparison at a glance &middot; July 2026</div>
+  </header>
+
+  <div class="note">
+    <strong>Company context:</strong> VS Code is the only supported IDE. Claude Desktop is not permitted &mdash; Claude is used only through its command-line tool and its VS Code extension. Badges below show only the surfaces actually used at the company.
+  </div>
+
+  <table>
+    <colgroup>
+      <col class="aspect"><col class="tool"><col class="tool"><col class="tool">
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="aspect">&nbsp;</th>
+        <th class="tool copilot">GitHub Copilot</th>
+        <th class="tool claude">Claude</th>
+        <th class="tool devin">Devin.AI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="aspect">How it's used<br>(surfaces)</td>
+        <td class="copilot">
+          <div class="surf">
+            <span class="badge yes">VS Code &#10003;</span>
+            <span class="badge yes">CLI &#10003;</span>
+            <span class="badge yes">Web &#10003;</span>
+          </div>
+          Lives inside VS Code as its first-class home (suggestions, chat, agent mode). Also a terminal command-line tool, and a web presence on the source-control platform for assigning background work. No separate desktop app &mdash; it works within tools you already have.
+        </td>
+        <td class="claude">
+          <div class="surf">
+            <span class="badge yes">VS Code &#10003;</span>
+            <span class="badge yes">CLI &#10003;</span>
+          </div>
+          Used two ways at the company: the VS Code extension (shows proposed changes as inline diffs and reads the editor's error list) and the command-line tool (scripting and automation). The two share history, so work can move between them. A web version and desktop app exist but are not used here.
+        </td>
+        <td class="devin">
+          <div class="surf">
+            <span class="badge yes">VS Code &#10003;</span>
+            <span class="badge yes">Web &#10003;</span>
+            <span class="badge yes">Own app &#10003;</span>
+          </div>
+          Primarily its own hosted web platform, where tasks run in Devin's cloud environment. A VS Code extension lets developers view, chat with, and manage those cloud sessions from the editor &mdash; but the work runs remotely, not locally. Also offers its own desktop application. No conventional local command-line coding tool.
+        </td>
+      </tr>
+      <tr>
+        <td class="aspect">Fit with a VS Code + CLI setup</td>
+        <td class="copilot">Excellent &mdash; native to VS Code and does its work directly in the developer's local project, with a command-line tool alongside.</td>
+        <td class="claude">Excellent &mdash; the two approved surfaces (VS Code extension and command-line tool) are exactly its strongest ones; local edits stay in the developer's project.</td>
+        <td class="devin">Partial &mdash; reachable from VS Code, but as a remote-control panel: the actual work happens on Devin's platform, not inside the local VS Code project.</td>
+      </tr>
+      <tr>
+        <td class="aspect">Agentic mode</td>
+        <td class="copilot">An in-editor agent that decides which files to change, edits across them, runs commands like tests and installs, and fixes its own errors. A separate background agent can turn a tracked issue into a finished, reviewable change.</td>
+        <td class="claude">Plans and carries out multi-step changes across files, runs commands, and verifies results. Can split a job across parallel helper agents, each working independently and reporting back to a lead.</td>
+        <td class="devin">A fully autonomous engineer: takes a task, learns the codebase, writes and tests code, and produces a reviewable change end to end &mdash; re-planning when it hits obstacles and running several instances in parallel.</td>
+      </tr>
+      <tr>
+        <td class="aspect">General features</td>
+        <td class="copilot">Code suggestions and chat inside VS Code, review assistance, and deep integration with the everyday developer workflow and source-control platform.</td>
+        <td class="claude">Strong code reasoning, a wide view of the codebase, reusable project and team instruction files, and connections to outside tools and data sources.</td>
+        <td class="devin">A self-contained workspace with its own editor, terminal, and browser, plus connections to 20+ common tools (issue trackers, chat, source control, cloud and data services).</td>
+      </tr>
+      <tr>
+        <td class="aspect">Key differentiator</td>
+        <td class="copilot">Ubiquity &mdash; it lives inside VS Code and the tools developers already use every day, making it the easiest to adopt across a whole organization.</td>
+        <td class="claude">Depth &mdash; the strongest reasoning paired with the widest view of a codebase, guided by consistent, shareable team instructions.</td>
+        <td class="devin">Autonomy &mdash; you delegate a whole task and it manages the entire lifecycle on its own platform without supervision.</td>
+      </tr>
+      <tr>
+        <td class="aspect">Where it excels</td>
+        <td class="copilot">High-frequency everyday coding, fast trial-and-error loops, routine tests, and consistent delivery across a large team.</td>
+        <td class="claude">Architecture and design, complex debugging, disciplined refactoring, documentation, and making sense of unfamiliar codebases.</td>
+        <td class="devin">Long hands-off tasks, migrations, bulk maintenance, and running many well-scoped jobs in parallel.</td>
+      </tr>
+      <tr class="summary">
+        <td class="aspect">In a sentence</td>
+        <td class="copilot">The always-on default inside VS Code that speeds up everyday development for the whole team.</td>
+        <td class="claude">The deep thinker &mdash; via VS Code and the command line &mdash; for work that needs careful reasoning across an entire codebase.</td>
+        <td class="devin">The autonomous worker on its own platform for handing off well-scoped tasks to run start to finish.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer>High-level comparison for tool selection under a VS Code + command-line setup. Capabilities evolve quickly &mdash; reconfirm current details before standardizing across teams.</footer>
+</div>
+</body>
+</html>
