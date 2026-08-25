@@ -1,0 +1,152 @@
+# Canonical roadmap configuration - MVP2 Classification Agent
+# One file per team. See mvp2-classification-config.md for the field reference.
+#
+# Requirement traceability is noted inline as REQ-nnn.
+#
+# ---------------------------------------------------------------------------
+# HOW A SOURCE ROADMAP MAPS TO THIS FILE
+#
+# This example is transformed from a roadmap laid out as: a category title,
+# a Description, Key Capabilities, a Tech Stack, and Initiatives. That is ONE
+# observed layout, not a required one - source roadmaps vary by team and the
+# transformation is source-agnostic (REQ-1002). The canonical fields below are
+# the fixed contract; how each is derived is a per-roadmap mapping concern.
+#
+#   SOURCE SECTION      ->  CANONICAL FIELD    NOTES
+#   ------------------      ---------------    -----------------------------
+#   Category title      ->  name               Direct.
+#                       ->  id                 Derived; stable identifier.
+#                       ->  tag                Derived; slug of the title.
+#   Description         ->  intent             REWRITTEN, not copied. See the
+#                                              note at "intent" below.
+#   Key Capabilities    ->  in_scope           Near 1:1.
+#   (no source)         ->  out_of_scope       AUTHORED. Source roadmaps do
+#                                              not carry negative scope.
+#   Initiatives         ->  initiatives        Direct.
+#   Tech Stack          ->  metadata           Non-classifying (REQ-1009).
+#   (no source)         ->  aliases            Derived from the title and
+#                                              common shorthand.
+#
+# Sections absent from a given source roadmap simply yield no value for the
+# corresponding canonical field. Required fields with no source must be
+# authored at review (REQ-1007).
+# ---------------------------------------------------------------------------
+
+roadmap:
+  # --- identity and lifecycle -------------------------------------------
+  id: cards-platform-fy26            # stable identifier for this roadmap
+  team: cards-platform               # owning team (REQ-409)
+  version: 3                         # incremented on each approved revision (REQ-502)
+  approved_on: 2026-07-01
+  effective_from: 2026-07-01
+  effective_to: 2027-06-30           # classification fails closed past this (REQ-505)
+  owner: jane.doe
+
+  # --- provenance -------------------------------------------------------
+  # Source roadmap formats vary by team; this block is descriptive only and
+  # imposes no structure on the source (REQ-1002).
+  source:
+    format: confluence
+    reference: "CARDS/FY26 Product Roadmap"
+    transformed_on: 2026-07-14
+    confirmed_by: jane.doe           # roadmap owner review (REQ-1007)
+
+  # --- categories -------------------------------------------------------
+  # Each category is a classification class and a tag target.
+  categories:
+
+    # SOURCE: category titled "Core Solution"
+    - id: RM-CORE                                    # derived from title | REQ-1003
+      tag: roadmap-core-solution                     # slug of title | REQ-504
+      name: Core Solution                            # <- Category title | REQ-1003
+      status: active                                 # active | planned | retired
+                                                     # not from source; lifecycle state
+
+      # <- Description, REWRITTEN (REQ-1003)
+      #
+      # The source Description read:
+      #   "Core Solution - our foundational data and decisioning platform."
+      #
+      # That names a subject area. Classification judges whether an intake
+      # ADVANCES a stated outcome, so the description is rewritten into an
+      # outcome statement using the Description, Key Capabilities and
+      # Initiatives together. The roadmap owner must confirm the rewrite -
+      # only they know which outcome the team committed to (REQ-1007).
+      intent: >
+        Deliver a unified decisioning platform that replaces per-LOB
+        point solutions, so new decisioning use cases ship without
+        bespoke integration work.
+
+      # <- Key Capabilities (REQ-1003)
+      # The cleanest mapping in the set; usually a direct lift.
+      in_scope:
+        - real-time decision execution
+        - centralised rule authoring
+        - decision audit and replay
+      # NO SOURCE - authored at review (REQ-1003)
+      # Source roadmaps state what a category covers, never what it excludes.
+      # Categories drawn from a strategy document are broad, and breadth
+      # attracts topically adjacent intakes that do not advance the intent.
+      # Entries must be specific; "things unrelated to this" carries no signal.
+      # A useful starting point is the Key Capabilities of the OTHER categories
+      # in the same roadmap - they are natural negatives for this one.
+      out_of_scope:
+        - batch regulatory reporting                 # <- RM-REPORT's capabilities
+        - fraud model training
+
+      # NO SOURCE - derived from the title and common shorthand.
+      # Optional; improves matching when an intake uses informal names.
+      aliases:
+        - core solution
+        - decisioning platform
+      # <- Initiatives (REQ-608)
+      # Concrete work under the category. Not classes themselves - an intake
+      # matching an initiative is by definition matching this category.
+      # Enables attributing an alignment to a specific initiative.
+      initiatives:
+        - name: Streaming feature store rollout
+          status: in_flight
+        - name: Rules engine consolidation
+          status: planned
+      # <- Tech Stack, and any other source content that does not map to a
+      # canonical field (REQ-1004). Retained as metadata, never used as a
+      # classification signal.
+      #
+      # Tech Stack is deliberately non-classifying: note that RM-REPORT also
+      # lists KAFKA. Shared infrastructure is not evidence of strategic
+      # alignment, and treating it as such would pull every intake mentioning
+      # Kafka toward both categories (REQ-1009).
+      metadata:
+        tech_stack:
+          - KAFKA
+          - DECISION-SVC
+        contacts:
+          - jane.doe
+
+    # SOURCE: category titled "Reporting and Insight"
+    # Same mapping as above. This category's Key Capabilities are what supply
+    # RM-CORE's out_of_scope entries, and vice versa.
+    - id: RM-REPORT
+      tag: roadmap-reporting
+      name: Reporting and Insight
+      status: active
+
+      intent: >
+        Consolidate LOB reporting onto a single governed data layer so
+        that regulatory and management reporting draw from one source.
+
+      in_scope:                                      # <- Key Capabilities
+        - regulatory report generation
+        - management dashboarding
+      out_of_scope:                                  # authored at review
+        - real-time decision execution               # <- RM-CORE's capabilities
+
+      aliases:
+        - reporting
+        - insight
+
+      metadata:                                      # <- Tech Stack
+        tech_stack:
+          - KAFKA                                    # shared with RM-CORE
+          - REPORT-SVC
+

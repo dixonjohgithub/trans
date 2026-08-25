@@ -1,0 +1,54 @@
+# Canonical roadmap configuration - minimal valid example.
+#
+# The smallest configuration satisfying the required fields. Shown to
+# illustrate what a sparse source roadmap degrades to, not as a target.
+#
+# A category thinner than this - a name with nothing stating an outcome or
+# bounding the scope - is not classifiable and is rejected under REQ-1006.
+#
+# SOURCE MAPPING: this roadmap's source had only a category title and a short
+# Description. No Key Capabilities, no Tech Stack, no Initiatives. Compare with
+# roadmap-cards-platform-fy26.yaml, which shows the fuller mapping.
+#
+#   SOURCE SECTION   ->  CANONICAL FIELD   NOTES
+#   --------------       ---------------   --------------------------------
+#   Category title   ->  name, id, tag     Direct / derived.
+#   Description      ->  intent            Rewritten into an outcome.
+#   (absent)         ->  in_scope          AUTHORED at review.
+#   (no source)      ->  out_of_scope      AUTHORED at review.
+#
+# Two of the required fields had no source at all. Both were authored during
+# roadmap owner review (REQ-1007). A roadmap in this state is more dependent on
+# the review conversation than on the source document.
+
+roadmap:
+  id: wealth-ops-fy26
+  team: wealth-ops
+  version: 1
+  approved_on: 2026-07-01
+  effective_from: 2026-07-01
+  effective_to: 2027-06-30
+  owner: sam.reyes
+
+  categories:
+    - id: RM-ADVISOR
+      tag: roadmap-advisor-tooling
+      name: Advisor Tooling
+      status: active
+
+      # <- Description, rewritten into an outcome statement.
+      intent: >
+        Reduce advisor time-to-answer by consolidating client servicing
+        tools into a single workspace.
+
+      # NO SOURCE - the roadmap had no Key Capabilities section.
+      # Authored at review from the intent statement.
+      in_scope:
+        - client servicing workflow consolidation
+      # NO SOURCE - authored at review. With only one category in this
+      # roadmap there are no sibling capabilities to draw negatives from,
+      # so these come entirely from the owner.
+      out_of_scope:
+        - portfolio construction
+        - client billing
+
